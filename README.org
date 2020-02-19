@@ -1,15 +1,15 @@
 # SICE_tools
-Different codes developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (Geological Survey of Denmark and Greenland). 
+Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (Geological Survey of Denmark and Greenland). 
 
 
 * Table of Contents                               :toc_2:noexport:
-- [[#code_descriptions][Code descriptions]]
+- [[#code_descriptions][Tool descriptions]]
   - [[#extract_esalc][extract_esalc.py]]
   - [[#extract_esalc][extract_arcticdem.py]]
   
   
 
-* Code descriptions
+* Tool descriptions
 ** extract_esalc.py
 + Clips, reprojects and compresses [[https://www.esa-landcover-cci.org/?q=node/197][ESA global Land Cover (ESALC) products]] (downloadable [[https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-land-cover?tab=form][here]]) for a given region. Converts the resulting .tif file to be usable in the [[https://github.com/mankoff/SICE][SICE toolchain]]. 
 + Iceland, Svalbard, FransJosefLand, NovayaZemlya, SevernayaZemlya, JanMayen, NorthernArcticCanada, SouthernArcticCanada, Norway, Beaufort and AntarcticPeninsula are currently implemented.
