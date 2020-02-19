@@ -18,10 +18,7 @@ conda env create -f SICE_tools.yml
 #+END_SRC
 Then, run =conda activate SICE_tools= to activate this new virtual environment.
 + Codes can also be run interactively without any download using [[https://mybinder.org/][Binder]]. 
-<a href=https://mybinder.org/v2/gh/jsignell/pydata_ann_arbor_2019/master>
-   <img src=https://mybinder.org/badge_logo.svg>
-</a>
-
+[[https://mybinder.org/v2/gh/jsignell/pydata_ann_arbor_2019/master][https://mybinder.org/badge_logo.svg]]
 
 * Tools description
 ** extract_esalc.py
