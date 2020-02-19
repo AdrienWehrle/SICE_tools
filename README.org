@@ -12,8 +12,7 @@ Different codes developed as part of the [[http://snow.geus.dk/][SICE project]] 
 * Code descriptions
 ** extract_esalc.py
 + Clips, reprojects and compresses [[https://www.esa-landcover-cci.org/?q=node/197][ESA global Land Cover (ESALC) products]] (downloadable [[https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-land-cover?tab=form][here]]) for a given region. Converts the resulting .tif file to be usable in the [[https://github.com/mankoff/SICE][SICE toolchain]]. 
-+ Iceland, Svalbard, FransJosefLand, NovayaZemlya, SevernayaZemlya, JanMayen, NorthernArcticCanada, SouthernArcticCanada, Norway, Beaufort and AntarcticPeninsula 
-are currently implemented.
++ Iceland, Svalbard, FransJosefLand, NovayaZemlya, SevernayaZemlya, JanMayen, NorthernArcticCanada, SouthernArcticCanada, Norway, Beaufort and AntarcticPeninsula are currently implemented.
 + Results have been merged in the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]] and can be found [[https://github.com/mankoff/SICE/tree/master/masks][here]].
 
 **extract_arcticdem.py
