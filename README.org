@@ -13,11 +13,12 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
   
 * Development Environment
 + These tools have been developed using a conda virtual environment that can be identically recreated. To this end, create a new environment using [[./SICE_tools.yml]] as below:
-  #+BEGIN_SRC bash :results verbatim
-  conda env create -f SICE_tools.yml
-  #+END_SRC
+#+BEGIN_SRC bash :results verbatim
+conda env create -f SICE_tools.yml
+#+END_SRC
   Then, run =conda activate SICE_tools= to activate this new virtual environment.
-+ Codes can also be run interactively without any download using [[https://mybinder.org/][Binder]]. 
++ Codes can also be run interactively without any download using [[https://mybinder.org/][Binder]].
+
   [[https://mybinder.org/v2/gh/AdrienWehrle/SICE_tools/master][https://mybinder.org/badge_logo.svg]]
 
 * Tools description
