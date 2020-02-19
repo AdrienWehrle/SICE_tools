@@ -12,11 +12,15 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
   
   
 * Development Environment
-These tools have been developed using a conda virtual environment that can be identically recreated. To this end, create a new environment using [[./SICE_tools.yml]] as below:
++ These tools have been developed using a conda virtual environment that can be identically recreated. To this end, create a new environment using [[./SICE_tools.yml]] as below:
 #+BEGIN_SRC bash :results verbatim
 conda env create -f SICE_tools.yml
 #+END_SRC
 Then, run =conda activate SICE_tools= to activate this new virtual environment.
++ Codes can also be run interactively without any download using [[https://mybinder.org/][Binder]]. 
+<a href=https://mybinder.org/v2/gh/jsignell/pydata_ann_arbor_2019/master>
+   <img src=https://mybinder.org/badge_logo.svg>
+</a>
 
 
 * Tools description
