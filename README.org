@@ -11,7 +11,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
   
   
 * Development Environment
-These tools have been developed using a conda virtual environment than can be identically recreated. To this end, create a new environment using [[./SICE_tools.yml]]:
+These tools have been developed using a conda virtual environment that can be identically recreated. To this end, create a new environment using [[./SICE_tools.yml]]:
 #+BEGIN_SRC bash :results verbatim
 conda env create -f SICE_tools.yml
 #+END_SRC
