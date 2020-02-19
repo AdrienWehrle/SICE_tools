@@ -15,7 +15,7 @@ Different codes developed as part of the [[http://snow.geus.dk/][SICE project]] 
 + Iceland, Svalbard, FransJosefLand, NovayaZemlya, SevernayaZemlya, JanMayen, NorthernArcticCanada, SouthernArcticCanada, Norway, Beaufort and AntarcticPeninsula are currently implemented.
 + Results have been merged in the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]] and can be found [[https://github.com/mankoff/SICE/tree/master/masks][here]].
 
-**extract_arcticdem.py
+** extract_arcticdem.py
 + Clips [https://www.pgc.umn.edu/data/arcticdem/][ArcticDEM] (downloadable [[http://data.pgc.umn.edu/elev/dem/setsm/ArcticDEM/mosaic/v3.0/][here]]) derived slopes and slope aspects for a given region based on a mask. 
 + Slopes and slope aspects have been computed using the [[https://step.esa.int/main/toolboxes/snap/)][SNAP]] Slope Calculation operator. 
 + Masks have been generated using [[./extract_esalc.py]].
