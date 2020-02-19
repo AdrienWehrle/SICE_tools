@@ -6,6 +6,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
 - [[#code_descriptions][Tools description]]
   - [[#extract_esalc][extract_esalc.py]]
   - [[#extract_esalc][extract_arcticdem.py]]
+  - [[#get_iboar][get_IBOAR.py]]
   
   
 
@@ -19,3 +20,9 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
 + Clips [[https://www.pgc.umn.edu/data/arcticdem/][ArcticDEM]] (downloadable [[http://data.pgc.umn.edu/elev/dem/setsm/ArcticDEM/mosaic/v3.0/][here]]) derived slopes and slope aspects for a given region based on a mask. 
 + Slopes and slope aspects have been computed using the [[https://step.esa.int/main/toolboxes/snap/)][SNAP]] Slope Calculation operator. 
 + Masks have been generated using [[./extract_esalc.py]].
+
+** get_IBOAR.py
++ Computes Effective Solar Zenith Angles (SZA) and Viewing Zenith Angles (VZA) based on [[https://github.com/maximlamare/s3_tools/blob/master/change_tiepoint.py][s3_tools]]. 
++ The Intrinsic Bottom of Atmosphere Reflectance (IBOAR) is calculated for a given scene and given bands. 
++ Uses ArcticDEM derived slopes and slope aspects generated using [[./extract_arcticdem.py]] and Rayleigh corrected Bottom of atmosphere Reflectances (BRR) using the [[https://step.esa.int/main/toolboxes/snap/)][SNAP]] Rayleigh Correction Processor. 
+
