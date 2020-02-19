@@ -35,3 +35,9 @@ Then, run =conda activate SICE_tools= to activate this new virtual environment.
 + The Intrinsic Bottom of Atmosphere Reflectance (IBOAR) is calculated for a given scene and given bands. 
 + Uses ArcticDEM derived slopes and slope aspects generated using [[./extract_arcticdem.py]] and Rayleigh corrected Bottom of atmosphere Reflectances (BRR) using the [[https://step.esa.int/main/toolboxes/snap/)][SNAP]] Rayleigh Correction Processor. 
 
+** SICE_products_availability.py
+
++ Checks the availability of the [[https://github.com/mankoff/SICE][SICE toolchain]] products using a list or a csv file containing the product names.
++ Option to run the functions by multiprocessing to drastically decrease computation time.
++ Outputs can be saved in a csv file and/or represented in a figure.
+
