@@ -8,6 +8,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
   - [[#extract_esalc][extract_esalc.py]]
   - [[#extract_esalc][extract_arcticdem.py]]
   - [[#get_iboar][get_IBOAR.py]]
+  - [[#sice_products_availability][SICE_products_availability.py]]
   
   
 * Development Environment
