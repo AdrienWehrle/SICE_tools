@@ -13,14 +13,14 @@ the user) and drastically decrease computation time.
 #variables=['OAA','OZA','Oa01_reflectance','Oa02_reflectance','Oa03_reflectance','Oa04_reflectance','Oa05_reflectance']
 
 
-def data_availability_check(inpath='C:/Users/Pascal/Dropbox/AW/Greenland/',
-                            outpath='C:/Users/Pascal/Desktop/GEUS_2019/',
-                            variables='C:/Users/Pascal/Desktop/GEUS_2019/SICE_products.csv',
+def data_availability_check(inpath='C:/Users/Adrien/Dropbox/AW/Greenland/',
+                            outpath='C:/Users/Adrien/Desktop/GEUS_2019/',
+                            variables='C:/Users/Adrien/Desktop/GEUS_2019/SICE_products.csv',
                             variables_date=None,
                             variables_extension='.tif',
                             visualisation=False,
                             fig_save=True,
-                            fig_path='C:/Users/Pascal/Desktop/GEUS_2019/',
+                            fig_path='C:/Users/Adrien/Desktop/GEUS_2019/',
                             fig_extension='eps'):
     
     '''
@@ -42,7 +42,7 @@ def data_availability_check(inpath='C:/Users/Pascal/Dropbox/AW/Greenland/',
         
     OUTPUTS:
         data_availability: matrix with dates in rows and variables in columns [dataframe]
-        data_availability_from_[start_date]_to[end_date].csv: file containing data_availability,
+        data_availability_from_{start_date}_to{end_date}.csv: file containing data_availability,
                                                               stored in outpath [.csv]
     
     '''
@@ -50,14 +50,13 @@ def data_availability_check(inpath='C:/Users/Pascal/Dropbox/AW/Greenland/',
     import numpy as np
     import pandas as pd
     import matplotlib.pyplot as plt
+    import glob
+    import os
+    from tqdm import tqdm #progress bar
     
     #set default plot parameters (ESA font)
     plt.rcParams['font.sans-serif'] = ['Georgia']
     plt.rcParams["font.size"] = 12
-
-    import glob
-    import os
-    from tqdm import tqdm #progress bar
 
     #look for variables from a given file if unknown
     if type(variables_date)==str:
@@ -143,9 +142,6 @@ def data_availability_check(inpath='C:/Users/Pascal/Dropbox/AW/Greenland/',
 
 
 
-
-
-
 '''
 The section below is similar to data_availability_check(), just reformulated to 
 correctly run by multiprocessing.
@@ -166,8 +162,8 @@ if multi_proc==True:
     import time
     from multiprocessing import Pool
     
-    inpath='C:\\Users\Pascal\\Dropbox\\AW\\Greenland\\'
-    outpath='C:\\Users\Pascal\\Desktop\\GEUS_2019\\'
+    inpath='C:\\Users\Adrien\\Dropbox\\AW\\Greenland\\'
+    outpath='C:\\Users\Adrien\\Desktop\\GEUS_2019\\'
     variables=['OAA','OZA','Oa01_reflectance','Oa02_reflectance','Oa03_reflectance','Oa04_reflectance','Oa05_reflectance']
     variables_date='20190801'
     variables_extension='.tif'
