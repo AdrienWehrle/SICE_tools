@@ -17,8 +17,8 @@ the deletion of temporary outputs.
 
 def extract_arcticdem(adem_slope='H:/arcticdem_mosaic_500m_v3.0_slope.data/slope.img',
                        region='NovayaZemlya',
-                       regional_mask='C:/Users/Pascal/Desktop/GEUS_2019/masks/github/NovayaZemlya.tif',
-                       outpath='C:/Users/Pascal/Desktop/GEUS_2019/tempo/',
+                       regional_mask='C:/Users/Adrien/Desktop/GEUS_2019/masks/github/NovayaZemlya.tif',
+                       outpath='C:/Users/Adrien/Desktop/GEUS_2019/tempo/',
                        aspect=False):
     
     '''
@@ -206,11 +206,11 @@ def extract_arcticdem(adem_slope='H:/arcticdem_mosaic_500m_v3.0_slope.data/slope
 
 import os
 
-regions= ['Iceland', 'Svalbard', 'FransJosefLand', 'NovayaZemlya',
+regions= ['Greenland','Iceland', 'Svalbard', 'FransJosefLand', 'NovayaZemlya',
           'SevernayaZemlya', 'JanMayen', 'NorthernArcticCanada', 
           'SouthernArcticCanada']
 
-inpath='C:/Users/Pascal/Desktop/GEUS_2019/masks/github/'
+inpath='C:/Users/Adrien/Desktop/GEUS_2019/masks/github/'
 
 for reg in regions:
     
@@ -230,14 +230,3 @@ for reg in regions:
     
     for i in range(4):
         print('\n')
-
-
-
-
-
-        
-        
-
-
-
-    
