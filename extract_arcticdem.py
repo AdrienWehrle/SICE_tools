@@ -15,10 +15,10 @@ the deletion of temporary outputs.
 """
 
 
-def extract_arcticdem(adem_slope='H:/arcticdem_mosaic_500m_v3.0_slope.data/slope.img',
+def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
                        region='NovayaZemlya',
-                       regional_mask='C:/Users/Adrien/Desktop/GEUS_2019/masks/github/NovayaZemlya.tif',
-                       outpath='C:/Users/Adrien/Desktop/GEUS_2019/tempo/',
+                       regional_mask='/srv/home/8675309/AW/smasks/github/NovayaZemlya.tif',
+                       outpath='/srv/home/8675309/AW/',
                        aspect=False):
     
     '''
@@ -220,7 +220,7 @@ for reg in regions:
     os.remove(out_tif)
     os.remove(out_tif_3413)
     os.remove(temp)
-    out_tif,out_tif_3413,temp=extract_arcticdem(adem_slope='H:/arcticdem_mosaic_500m_v3.0_slope.data/aspect.img',
+    out_tif,out_tif_3413,temp=extract_arcticdem(adem_slope='/srv/home/8675309/AW/aspect.img',
                                                 regional_mask=region_path,
                                                 region=reg,aspect=True)
     print('Deleting temporary outputs...')
