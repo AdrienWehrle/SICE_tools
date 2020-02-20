@@ -17,7 +17,7 @@ the deletion of temporary outputs.
 
 def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
                        region='NovayaZemlya',
-                       regional_mask='/srv/home/8675309/AW/smasks/github/NovayaZemlya.tif',
+                       regional_mask='/srv/home/8675309/AW/masks/NovayaZemlya.tif',
                        outpath='/srv/home/8675309/AW/',
                        aspect=False,
                        verbose=True):
@@ -215,7 +215,7 @@ regions= ['Greenland','Iceland', 'Svalbard', 'FransJosefLand', 'NovayaZemlya',
           'SevernayaZemlya', 'JanMayen', 'NorthernArcticCanada', 
           'SouthernArcticCanada']
 
-inpath='C:/Users/Adrien/Desktop/GEUS_2019/masks/github/'
+inpath='/srv/home/8675309/AW/masks/'
 verbose=True
 
 for reg in regions:
@@ -235,6 +235,6 @@ for reg in regions:
     os.remove(out_tif_3413)
     os.remove(temp)
     
-    if verbose=True:
+    if verbose==True:
       for i in range(4):
           print('\n')
