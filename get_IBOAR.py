@@ -70,11 +70,11 @@ if run_command_line==True:
 if run_command_line==False:
     
     var='SZA'
-    inpath='C:/Users/Adrien/Desktop/GEUS_2019/slopey_inoutputs/20190802/'
-    inpath_adem='C:/Users/Adrien/Desktop/GEUS_2019/slopey_inoutputs/'
+    inpath='/srv/home/8675309/AW/20190802/'
+    inpath_adem='/srv/home/8675309/AW/'
     region='Greenland'
     slope_thres=15
-    outpath='C:/Users/Adrien/Desktop/GEUS_2019/slopey_inoutputs/20190802/'
+    outpath='/srv/home/8675309/AW/'
     
 
 
