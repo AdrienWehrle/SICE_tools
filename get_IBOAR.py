@@ -15,6 +15,7 @@ Functions are first initialized and then run at the end of the code.
 INPUTS:
     run_command_line: run the code from the command line (using an argument parser) [boolean]
     time_it: set to True to print processing time [boolean]
+    verbose: set to True to print details about processing [boolean]
     inpath: path to the folder containing the desired S3 scene processed using the 
             2nd step of SICE processing pipeline (https://github.com/mankoff/SICE/) [string]
     inpath_adem: path to the folder containing regional ArcticDEM derived 
@@ -52,8 +53,11 @@ import argparse
 from osgeo import gdal, gdalconst
 import time
 
-time_it=True
+
 run_command_line=False
+time_it=True
+verbose=True
+
 
 if time_it==True:
     start_time = time.time()
@@ -80,7 +84,7 @@ if run_command_line==False:
 
 
 def get_effective_angles(var=var,inpath=inpath,inpath_adem=inpath_adem,region=region,
-                         slope_thres=slope_thres,outpath=outpath):
+                         slope_thres=slope_thres,outpath=outpath,verbose=verbose):
     
     '''
     
@@ -116,12 +120,14 @@ def get_effective_angles(var=var,inpath=inpath,inpath_adem=inpath_adem,region=re
         angle_name=var+'.tif'
         angle=rasterio.open(inpath+var+'.tif').read(1)
     except:
-        print('ERROR: %s is missing' %angle_name)
+        if verbose==True:
+            print('ERROR: %s is missing' %angle_name)
         return
     try:
         saa=rasterio.open(inpath+'SAA.tif').read(1)
     except:
-        print('ERROR: SAA.tif is missing')
+        if verbose==True:
+            print('ERROR: SAA.tif is missing')
         return
     
     
@@ -226,7 +232,7 @@ def get_effective_angles(var=var,inpath=inpath,inpath_adem=inpath_adem,region=re
 
 
 
-def get_IBOAR(slope,aspect,slope_flag,inpath=inpath,outpath=outpath):
+def get_IBOAR(slope,aspect,slope_flag,inpath=inpath,outpath=outpath,verbose=verbose):
     '''
     
     Determines the Intrinsic Bottom of Atmosphere Reflectance (IBOAR) for given bands 
@@ -239,6 +245,7 @@ def get_IBOAR(slope,aspect,slope_flag,inpath=inpath,outpath=outpath):
                     1 for slope<=threshold, 255 (no data) for slope>threshold [array]
         inpath: path to the folder containing the variables (rBRR and SAA needed) [string]
         outpath: path where to save R_slope_{band}.tif [string]
+        verbose: set to True to print details about processing [boolean]
     
     OUTPUTS:
         IBOAR_{band_num}.tif: tiff file containing the effective angles for each
@@ -253,7 +260,8 @@ def get_IBOAR(slope,aspect,slope_flag,inpath=inpath,outpath=outpath):
     #listing available BRR bands
     BRRs_paths=list(np.sort(glob.glob(inpath+'rBRR*')))
     if len(BRRs_paths)==0:
-        print('ERROR: no rBRR_XX.tif files')
+        if verbose==True:
+            print('ERROR: no rBRR_XX.tif files')
         return
     
     #loading solar azimuth angle (flat)
@@ -299,12 +307,14 @@ if run_command_line==True:
     try:
         SZA_eff, slope, aspect,slope_flag=get_effective_angles('SZA',inpath=args.inpath)
     except:
-        print('ERROR: get_effective_angles() did not completed, see above')
+        if verbose==True:
+            print('ERROR: get_effective_angles() did not completed, see above')
         sys.exit()
     try:
         OZA_eff=get_effective_angles('OZA',inpath=args.inpath)
     except:
-        print('ERROR: get_effective_angles() did not completed, see above')
+        if verbose==True:
+            print('ERROR: get_effective_angles() did not completed, see above')
         sys.exit()
     
     
@@ -312,7 +322,8 @@ if run_command_line==True:
     try:
         get_IBOAR(slope,aspect,slope_flag,inpath=args.inpath)
     except:
-        print('ERROR: get_IBOAR() did not completed, see above')
+        if verbose==True:
+            print('ERROR: get_IBOAR() did not completed, see above')
         sys.exit()
 
 
@@ -322,14 +333,16 @@ if run_command_line==False:
     try:
         SZA_eff, slope, aspect, slope_flag=get_effective_angles('SZA')
     except:
-        print('ERROR: get_effective_angles() did not completed, see above')
+        if verbose==True:
+            print('ERROR: get_effective_angles() did not completed, see above')
         err=True
         
     if err==False:
         try:
             OZA_eff=get_effective_angles('OZA')
         except:
-            print('ERROR: get_effective_angles() did not completed, see above')
+            if verbose==True:
+                print('ERROR: get_effective_angles() did not completed, see above')
 
     
     if err==False:
@@ -342,4 +355,5 @@ if run_command_line==False:
 if time_it==True:
     end_time = time.time()
     processing_time=(end_time - start_time)/60
-    print('--- Processing time: %.3f minutes ---' %processing_time)
+    if verbose==True:
+        print('--- Processing time: %.3f minutes ---' %processing_time)
