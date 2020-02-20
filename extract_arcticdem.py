@@ -19,7 +19,8 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
                        region='NovayaZemlya',
                        regional_mask='/srv/home/8675309/AW/smasks/github/NovayaZemlya.tif',
                        outpath='/srv/home/8675309/AW/',
-                       aspect=False):
+                       aspect=False,
+                       verbose=True):
     
     '''
     INPUTS:
@@ -49,12 +50,13 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
     #clear all variables to enable file deletion
     get_ipython().magic('reset -sf') 
     
-    if aspect==False:
-        print('\n')
-        print('Running extract_arctidem for %s... [SLOPE]' %region)
-    if aspect==True:
-        print('\n')
-        print('ASPECT: Running extract_arctidem for %s... [ASPECT]' %region)
+    if verbose==True:
+      if aspect==False:
+          print('\n')
+          print('Running extract_arctidem for %s... [SLOPE]' %region)
+      if aspect==True:
+          print('\n')
+          print('ASPECT: Running extract_arctidem for %s... [ASPECT]' %region)
     
     #initialize output name
     target_crs='EPSG: 3413'
@@ -65,21 +67,23 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
     
     #delete outputs if already exists
     if os.path.exists(out_tif)==True:
-        if aspect==False:
-            print('WARNING: Clipped ArcticDEM derived slopes already exist...')
-            print('Deleting Clipped ArcticDEM derived slopes...')
-        elif aspect==False:
-            print('WARNING: Clipped ArcticDEM derived slope aspect already exist...')
-            print('Deleting Clipped ArcticDEM derived slope aspect...')
+        if verbose==True:
+          if aspect==False:
+              print('WARNING: Clipped ArcticDEM derived slopes already exist...')
+              print('Deleting Clipped ArcticDEM derived slopes...')
+          elif aspect==False:
+              print('WARNING: Clipped ArcticDEM derived slope aspect already exist...')
+              print('Deleting Clipped ArcticDEM derived slope aspect...')
         os.remove(out_tif)
         
     if os.path.exists(out_tif_3413)==True:
-        if aspect==False:
-            print('WARNING: Reprojected and clipped ArcticDEM derived slopes already exist...')
-            print('Deleting reprojected and clipped ArcticDEM derived slopes...')
-        elif aspect==True:
-            print('WARNING: Reprojected and clipped ArcticDEM derived slope aspect already exist...')
-            print('Deleting reprojected and clipped ArcticDEM derived slope aspect...')
+        if verbose==True:
+          if aspect==False:
+              print('WARNING: Reprojected and clipped ArcticDEM derived slopes already exist...')
+              print('Deleting reprojected and clipped ArcticDEM derived slopes...')
+          elif aspect==True:
+              print('WARNING: Reprojected and clipped ArcticDEM derived slope aspect already exist...')
+              print('Deleting reprojected and clipped ArcticDEM derived slope aspect...')
         os.remove(out_tif_3413)
     
     data = rasterio.open(adem_slope)
@@ -102,12 +106,13 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
         """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
         import json
         return [json.loads(gdf.to_json())['features'][0]['geometry']]
-    
-    print('Creating mask...')
+    if verbose==True:
+      print('Creating mask...')
     coords = getFeatures(geo)
     
     #clip source image using coords
-    print('Clipping input...')
+    if verbose==True:
+      print('Clipping input...')
     out_img, out_transform = mask(dataset=data, shapes=coords, crop=True)
     
     #mask output image
@@ -121,14 +126,14 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
                     "width": out_img.shape[2],
                     "transform": out_transform,
                     "crs": regional_mask.crs})
-    
-    print('Saving output...')
+    if verbose==True:
+      print('Saving output...')
     with rasterio.open(out_tif, "w",compress='deflate', **out_meta) as dest:
         dest.write(out_img)
         
 
-        
-    print('Reprojecting output...')
+    if verbose==True:    
+      print('Reprojecting output...')
     dst_crs = regional_mask.crs
     with rasterio.open(out_tif) as src:
         transform, width, height = calculate_default_transform(src.crs, dst_crs, 
@@ -146,8 +151,8 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
                     dst_crs=dst_crs,
                     resampling=Resampling.nearest)
     
-
-    print('Resampling mask to fit output resolution...')
+    if verbose==True:
+      print('Resampling mask to fit output resolution...')
     #source
     src_filename = regional_mask_path
     src = gdal.Open(src_filename, gdalconst.GA_ReadOnly)
@@ -173,8 +178,8 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
     
     del dst # Flush
     
-    
-    print('Masking output...')
+    if verbose==True:
+      print('Masking output...')
     
     mask=rasterio.open(outpath+region+'mask_resampled_temp.tif')
     mask_data=mask.read(1)
@@ -187,7 +192,6 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
     profile_mask.update(nodata=255)
     
     if aspect==False:
-        
         with rasterio.open(outpath+region+'_arcticdem_slope'+'.tif', 'w', **profile_output) as dst:
             dst.write(output_data, 1)
         with rasterio.open(outpath+region+'_mask_resampled.tif', 'w', **profile_output) as dst:
@@ -211,6 +215,7 @@ regions= ['Greenland','Iceland', 'Svalbard', 'FransJosefLand', 'NovayaZemlya',
           'SouthernArcticCanada']
 
 inpath='C:/Users/Adrien/Desktop/GEUS_2019/masks/github/'
+verbose=True
 
 for reg in regions:
     
@@ -223,10 +228,12 @@ for reg in regions:
     out_tif,out_tif_3413,temp=extract_arcticdem(adem_slope='/srv/home/8675309/AW/aspect.img',
                                                 regional_mask=region_path,
                                                 region=reg,aspect=True)
-    print('Deleting temporary outputs...')
+    if verbose==True:
+      print('Deleting temporary outputs...')
     os.remove(out_tif)
     os.remove(out_tif_3413)
     os.remove(temp)
     
-    for i in range(4):
-        print('\n')
+    if verbose=True:
+      for i in range(4):
+          print('\n')
