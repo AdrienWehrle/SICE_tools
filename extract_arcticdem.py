@@ -28,6 +28,7 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
         region: region to clip [string]
         regional_mask: path of the mask associated to the selected region [.tif]
         outpath: folder where to the clipped ArcticDEM [string]
+        verbose: set to True to print details about processing [boolean]
         
     OUTPUTS:
         {outpath}/{region}_arcticdem_slope.tif: clipped ArcticDEM (EPSG: 3413) [.tif]
@@ -227,7 +228,7 @@ for reg in regions:
     os.remove(temp)
     out_tif,out_tif_3413,temp=extract_arcticdem(adem_slope='/srv/home/8675309/AW/aspect.img',
                                                 regional_mask=region_path,
-                                                region=reg,aspect=True)
+                                                region=reg, aspect=True)
     if verbose==True:
       print('Deleting temporary outputs...')
     os.remove(out_tif)
