@@ -28,7 +28,8 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
                   target_crs='EPSG:3413',
                   clean_temp_files=True,
                   to_SICEMask=True,
-                  binary_mask=False):
+                  binary_mask=False,
+                  verbose=True):
     '''
     INPUTS:
         esa_lc: path of ESA Land Classes .img file [string]
@@ -79,16 +80,19 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
     
     #Delete outputs if already exists
     if os.path.exists(out_tif)==True:
-        print('WARNING: Clipped ESA LC already exists...')
-        print('Deleting clipped ESA LC...')
+        if verbose==True:
+          print('WARNING: Clipped ESA LC already exists...')
+          print('Deleting clipped ESA LC...')
         os.remove(out_tif)
     if os.path.exists(out_tif_3413)==True:
-        print('WARNING: Reprojected and clipped ESA LC already exists...')
-        print('Deleting reprojected and clipped ESA LC...')
+        if verbose==True:
+          print('WARNING: Reprojected and clipped ESA LC already exists...')
+          print('Deleting reprojected and clipped ESA LC...')
         os.remove(out_tif_3413)
     if os.path.exists(SICEmask_tif)==True:
-        print('WARNING: SICE mask already exists...')
-        print('Deleting SICE mask...')
+        if verbose==True:
+          print('WARNING: SICE mask already exists...')
+          print('Deleting SICE mask...')
     
     
     
@@ -157,7 +161,8 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
             bbox = box(minx, miny, maxx, maxy)
             
         else:
-            print('Wrong region name or not implemented')
+            if verbose==True:
+              print('Wrong region name or not implemented')
             return
             
             
@@ -197,11 +202,13 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
         import json
         return [json.loads(gdf.to_json())['features'][0]['geometry']]
     
-    print('Creating mask...')
+    if verbose==True:
+      print('Creating mask...')
     coords = getFeatures(geo)
     
     #clip source image using coords
-    print('Clipping input...')
+    if verbose==True:
+      print('Clipping input...')
     out_img, out_transform = mask(dataset=data, shapes=coords, crop=True)
     
     # Copy the metadata
@@ -213,14 +220,15 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
                     "transform": out_transform,
                     "crs": data.crs})
     
-    print('Saving output...')
+    if verbose==True:
+      print('Saving output...')
     with rasterio.open(out_tif, "w",compress='deflate', **out_meta) as dest:
         dest.write(out_img)
         
 
     if source_crs != target_crs:
-        
-        print('Reprojecting output...')
+        if verbose==True:
+          print('Reprojecting output...')
         dst_crs = target_crs
         with rasterio.open(out_tif) as src:
             transform, width, height = calculate_default_transform(src.crs, dst_crs, 
@@ -271,12 +279,14 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
                 mask_esalc[mask_esalc==210]=255
                 mask_esalc[mask_esalc==0]=255
             else:
-                print('BeaufortSea mask could only be binary (covers ocean only)')
+                if verbose==True:
+                  print('BeaufortSea mask could only be binary (covers ocean only)')
                 mask_esalc=esalc.copy()
                 mask_esalc[(mask_esalc==210) & (mask_esalc!=0)]=2
                 mask_esalc[mask_esalc!=2]=255
-
-        print('Saving SICE mask...')
+        
+        if verbose==True:
+          print('Saving SICE mask...')
         profile = esalc_tp.profile 
         profile.update(nodata=255) 
         
@@ -287,7 +297,7 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
         return out_tif, out_tif_3413, clean_temp_files,to_SICEMask
         
         
-        
+verbose=True
 
 out_tif, out_tif_3413, clean_temp_files,to_SICEMASK=extract_esalc()
 
@@ -296,7 +306,8 @@ if to_SICEMASK==False:
     clean_temp_files=False
     
 if clean_temp_files==True:
-    print('Deleting temporary outputs...')
+    if verbose==True:
+      print('Deleting temporary outputs...')
     import os
     os.remove(out_tif)
     os.remove(out_tif_3413)
