@@ -13,14 +13,14 @@ the user) and drastically decrease computation time.
 #variables=['OAA','OZA','Oa01_reflectance','Oa02_reflectance','Oa03_reflectance','Oa04_reflectance','Oa05_reflectance']
 
 
-def data_availability_check(inpath='C:/Users/Adrien/Dropbox/AW/Greenland/',
-                            outpath='C:/Users/Adrien/Desktop/GEUS_2019/',
-                            variables='C:/Users/Adrien/Desktop/GEUS_2019/SICE_products.csv',
+def data_availability_check(inpath='/srv/home/8675309/SICEv0/',
+                            outpath='/srv/home/8675309/data_availability/',
+                            variables='/srv/home/8675309/data_availability/SICE_products.csv',
                             variables_date=None,
                             variables_extension='.tif',
                             visualisation=False,
                             fig_save=True,
-                            fig_path='C:/Users/Adrien/Desktop/GEUS_2019/',
+                            fig_path='/srv/home/8675309/data_availability/',
                             fig_extension='eps'):
     
     '''
