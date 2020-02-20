@@ -21,10 +21,10 @@ the deletion of temporary outputs.
 
 
 
-def extract_esalc(esa_lc='H:/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-v2.1.data/lccs_class.img',
+def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-v2.1.data/lccs_class.img',
                   source_crs='EPSG:4326',
-                  region='AntarcticPeninsula',
-                  outpath='C:/Users/Adrien/Desktop/GEUS_2019/masks/github/',
+                  region='Iceland',
+                  outpath='/srv/home/8675309/AW/',
                   target_crs='EPSG:3413',
                   clean_temp_files=True,
                   to_SICEMask=True,
