@@ -15,16 +15,15 @@ the deletion of temporary outputs.
 """
 
 
-def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
-                       region='NovayaZemlya',
-                       regional_mask='/srv/home/8675309/AW/masks/NovayaZemlya.tif',
-                       outpath='/srv/home/8675309/AW/',
-                       aspect=False,
-                       verbose=True):
+def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
+                      region='NovayaZemlya',
+                      regional_mask='/srv/home/8675309/AW/masks/NovayaZemlya.tif',
+                      outpath='/srv/home/8675309/AW/',
+                      verbose=True):
     
     '''
     INPUTS:
-        adem_slope: path of ArcticDEM .tif file [string]
+        adem: path of ArcticDEM .tif file [string]
         region: region to clip [string]
         regional_mask: path of the mask associated to the selected region [.tif]
         outpath: folder where to the clipped ArcticDEM [string]
@@ -51,43 +50,50 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
     #clear all variables to enable file deletion
     get_ipython().magic('reset -sf') 
     
+    #check if running slope or aspect 
+    var=adem.split('/')[-1].split('.')[0]
+    
     if verbose==True:
-      if aspect==False:
+      if var=='slope':
           print('\n')
           print('Running extract_arctidem for %s... [SLOPE]' %region)
-      if aspect==True:
+      elif var=='aspect':
           print('\n')
           print('ASPECT: Running extract_arctidem for %s... [ASPECT]' %region)
+      else:
+          print('\n')
+          print('ERROR: Wrong ArcticDEM input file. Rename to slope.img/aspect.img or modify the code')
+        
     
     #initialize output name
     target_crs='EPSG: 3413'
     target_crs_name=target_crs.split(':')[1]
         
-    out_tif=outpath+region+'_adem_slope'+'.tif'
-    out_tif_3413=outpath+region+'_arcticdem_slope_temp'+'.tif'
+    out_tif=outpath+region+'_adem_'+var+'.tif'
+    out_tif_3413=outpath+region+'_arcticdem_'+var+'_temp'+'.tif'
     
     #delete outputs if already exists
     if os.path.exists(out_tif)==True:
         if verbose==True:
-          if aspect==False:
+          if var=='slope':
               print('WARNING: Clipped ArcticDEM derived slopes already exist...')
               print('Deleting Clipped ArcticDEM derived slopes...')
-          elif aspect==False:
-              print('WARNING: Clipped ArcticDEM derived slope aspect already exist...')
-              print('Deleting Clipped ArcticDEM derived slope aspect...')
+          elif var=='aspect':
+              print('WARNING: Clipped ArcticDEM derived slope aspects already exist...')
+              print('Deleting Clipped ArcticDEM derived slope aspects...')
         os.remove(out_tif)
         
     if os.path.exists(out_tif_3413)==True:
         if verbose==True:
-          if aspect==False:
+          if var=='slope':
               print('WARNING: Reprojected and clipped ArcticDEM derived slopes already exist...')
               print('Deleting reprojected and clipped ArcticDEM derived slopes...')
-          elif aspect==True:
+          elif var=='aspect':
               print('WARNING: Reprojected and clipped ArcticDEM derived slope aspect already exist...')
               print('Deleting reprojected and clipped ArcticDEM derived slope aspect...')
         os.remove(out_tif_3413)
     
-    data = rasterio.open(adem_slope)
+    data = rasterio.open(adem)
     regional_mask_path=regional_mask
     regional_mask=rasterio.open(regional_mask)
     
@@ -192,14 +198,14 @@ def extract_arcticdem(adem_slope='/srv/home/8675309/AW/slope.img',
     mask_data[mask_data==0]=255
     profile_mask.update(nodata=255)
     
-    if aspect==False:
-        with rasterio.open(outpath+region+'_arcticdem_slope'+'.tif', 'w', **profile_output) as dst:
+    if var=='slope':
+        with rasterio.open(outpath+region+'_arcticdem_'+var+'.tif', 'w', **profile_output) as dst:
             dst.write(output_data, 1)
         with rasterio.open(outpath+region+'_mask_resampled.tif', 'w', **profile_output) as dst:
             dst.write(mask_data, 1)
             
-    if aspect==True:
-        with rasterio.open(outpath+region+'_arcticdem_aspect'+'.tif', 'w', **profile_output) as dst:
+    if var=='aspect':
+        with rasterio.open(outpath+region+'_arcticdem_'+var+'.tif', 'w', **profile_output) as dst:
             dst.write(output_data, 1)
     
 
@@ -221,14 +227,14 @@ verbose=True
 for reg in regions:
     
     region_path=inpath+reg+'.tif'
-    out_tif,out_tif_3413,temp=extract_arcticdem(regional_mask=region_path,region=reg,aspect=False)
+    out_tif,out_tif_3413,temp=extract_arcticdem(regional_mask=region_path,region=reg)
     print('Deleting temporary outputs...')
     os.remove(out_tif)
     os.remove(out_tif_3413)
     os.remove(temp)
-    out_tif,out_tif_3413,temp=extract_arcticdem(adem_slope='/srv/home/8675309/AW/aspect.img',
+    out_tif,out_tif_3413,temp=extract_arcticdem(adem='/srv/home/8675309/AW/aspect.img',
                                                 regional_mask=region_path,
-                                                region=reg, aspect=True)
+                                                region=reg)
     if verbose==True:
       print('Deleting temporary outputs...')
     os.remove(out_tif)
