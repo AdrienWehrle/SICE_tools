@@ -40,6 +40,7 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
         to_SICEMask: set to True to have a SICE useable mask as output [boolean]
         binary_mask: set to True to have a SICE useable binary mask (land/ocean) 
                      if False, mask contains the 22 ESALC [boolean]
+        verbose: set to True to print details about processing [boolean]
     
     OUTPUTS:
         if to_SICEMASK set to True:
