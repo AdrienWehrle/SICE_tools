@@ -5,11 +5,11 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
 * Table of Contents                               :toc_2:noexport:
 - [[#development-environment][Development Environment]]
 - [[#tools-description][Tools description]]
-  - [[#extract_esalc.py][extract_esalc.py]]
-  - [[#extract_arcticdem.py][extract_arcticdem.py]]
-  - [[#get_IBOAR.py][get_IBOAR.py]]
-  - [[#SICE_products_availability.py][SICE_products_availability.py]]
-  - [[#get_correlations.py][get_correlations.py]]
+  - [[#extract_esalcpy][extract_esalc.py]]
+  - [[#extract_arcticdempy][extract_arcticdem.py]]
+  - [[#get_IBOARpy][get_IBOAR.py]]
+  - [[#SICE_products_availabilitypy][SICE_products_availability.py]]
+  - [[#get_correlationspy][get_correlations.py]]
   
   
 * Development Environment
