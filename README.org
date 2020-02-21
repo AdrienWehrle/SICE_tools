@@ -50,7 +50,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
 
 ** get_correlations.py
 
-+ Computes the correlation between two variables over a given specific area.
++ Computes the correlation between two variables stored in rasters over a given specific area.
 + The default variables are the Snow Grain Diameter (SGD) and the percentage of variations between the Bottom Of Atmosphere Reflectance   (BOAR) and the Intrinsic Bottom Of Atmosphere Reflectance (IBOAR). This example can be easily modified with other variables and      
   another function to apply.
 + The function is run by multiprocessing to drastically decrease computation time.
