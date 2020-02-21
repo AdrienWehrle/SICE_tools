@@ -9,6 +9,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
   - [[#extract_esalc][extract_arcticdem.py]]
   - [[#get_iboar][get_IBOAR.py]]
   - [[#sice_products_availability][SICE_products_availability.py]]
+  - [[#get_correlations][get_correlations.py]]
   
   
 * Development Environment
@@ -46,4 +47,11 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
 + Checks the availability of the [[https://github.com/mankoff/SICE][SICE toolchain]] products using a list or a csv file containing the product names.
 + Option to run the functions by multiprocessing to drastically decrease computation time.
 + Outputs can be saved in a csv file and/or represented in a figure.
+
+** get_correlations.py
+
++ Computes the correlation between two variables over a given specific area.
++ The default variables are the Snow Grain Diameter (SGD) and the percentage of variations between the Bottom Of Atmosphere Reflectance   (BOAR) and the Intrinsic Bottom Of Atmosphere Reflectance (IBOAR). This example can be easily modified with other variables and      
+  another function to apply.
++ The function is run by multiprocessing to drastically decrease computation time.
 
