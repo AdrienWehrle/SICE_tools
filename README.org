@@ -18,6 +18,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
   #+BEGIN_SRC bash :results verbatim
   conda env create -f SICE_tools.yml
   #+END_SRC
+  =ResolvePackageNotFound= error can be raised. In that case, run =conda env export --no-builds > SICE_tools.yml= instead. \\
   Then, run =conda activate SICE_tools= to activate this new virtual environment.
 
 
