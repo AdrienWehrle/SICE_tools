@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jan 13 15:44:14 2020
 
 @author: Adrien Wehrlé, GEUS (Geological Survey of Denmark and Greenland), SICE project
 
