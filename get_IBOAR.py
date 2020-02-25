@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jan 17 08:45:17 2020
 
 @author: Adrien Wehrlé, GEUS (Geological Survey of Denmark and Greenland)
 
