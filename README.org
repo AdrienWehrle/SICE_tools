@@ -10,6 +10,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
   - [[#get_IBOARpy][get_IBOAR.py]]
   - [[#SICE_products_availabilitypy][SICE_products_availability.py]]
   - [[#get_correlationspy][get_correlations.py]]
+  - [[#sice_tools_guipy][sice_tools_gui.py]]
   
   
 * Development Environment
@@ -57,4 +58,8 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (G
   (IBOAR) determined by [[./get_IBOAR.py]]. This example can be easily modified with other variables and      
   another function to apply.
 + The function is run by multiprocessing to drastically decrease computation time.
+
+** sice_tools_gui.py
++ Basis for a simple GUI to play interactively with different tools.
++ Are currently implemented: file open dialog, matplotlib-hosted visualisation conserving projections, 1D profile creation and profile save dialog. 
 
