@@ -1,5 +1,5 @@
 # SICE_tools
-Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at GEUS (Geological Survey of Denmark and Greenland). 
+Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https://www.geus.dk/][GEUS]] (Geological Survey of Denmark and Greenland). 
 
 
 * Table of Contents                               :toc_2:noexport:
