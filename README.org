@@ -69,7 +69,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + Implementation of the Simple Cloud Detection Algorithm (SCDA) v2.0 using SLSTR bands, described in Fig. 5 of METSÄMÄKI et al, 2015. \\
   [[https://www.sciencedirect.com/science/article/abs/pii/S0034425714003630][METSÄMÄKI, Sari, PULLIAINEN, Jouni, SALMINEN, Miia, et al. Introduction to GlobSnow Snow Extent products with considerations for     
   accuracy assessment. Remote Sensing of Environment, 2015, vol. 156, p. 96-108.]]
-+ v1.4 is also implemented based on GlobSnow [[https://www.globsnow.info/docs/GlobSnow_technical_note2_scda_final_release.pdf][Technical note 2 Cloud Detection Algorithm SCDA]].
++ v1.4 is also implemented based on the GlobSnow [[https://www.globsnow.info/docs/GlobSnow_technical_note2_scda_final_release.pdf][Technical note 2: Cloud Detection Algorithm SCDA]].
 + Channel S5 is calibrated as indicated in the [[https://sentinel.esa.int/documents/247904/2731673/Sentinel-3A-SLSTR-Product-Notice-Level-1B-NRT][Sentinel-3 Product Notice - SLSTR]].
 + The original syntax has been preserved to easily link back to sources.
 
