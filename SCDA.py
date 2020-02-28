@@ -10,7 +10,7 @@ METSÄMÄKI, Sari, PULLIAINEN, Jouni, SALMINEN, Miia, et al. Introduction
 to GlobSnow Snow Extent products with considerations for accuracy assessment. 
 Remote Sensing of Environment, 2015, vol. 156, p. 96-108.
 
-v1.4 is implemented based on GlobSnow "Technical note 2 Cloud Detection
+v1.4 is implemented based on GlobSnow "Technical note 2: Cloud Detection
 Algorithm SCDA".
 https://www.globsnow.info/docs/GlobSnow_technical_note2_scda_final_release.pdf
 
