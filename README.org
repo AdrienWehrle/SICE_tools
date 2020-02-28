@@ -25,7 +25,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
   Then, run =conda activate SICE_tools= to activate this new virtual environment.
 
 
-+ The repository can also be run interactively without any download on Binder:
++ The repository can also be run interactively on Binder without any download:
 
   [[https://mybinder.org/v2/gh/AdrienWehrle/SICE_tools/master][https://mybinder.org/badge_logo.svg]]
 
