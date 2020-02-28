@@ -75,5 +75,6 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 
 ** SCDA.xml
 + Extracts, resamples and reprojects SLSTR bands needed for [[./SCDA.py]]. 
-+ It can be run using the [[https://github.com/mankoff/SICE/blob/master/S3_proc.sh][SICE toolchain]] with the resulting   
-  [[https://github.com/mankoff/SICE#development-environment][environment specifications]]. 
++ The [[https://github.com/mankoff/SICE/blob/master/S3_proc.sh][SICE toolchain]] with the resulting   
+  [[https://github.com/mankoff/SICE#development-environment][environment specifications]] has been used to run this file. 
++ Functions can be run by multiprocessing to drastically decrease computation time.
