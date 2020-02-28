@@ -10,7 +10,7 @@ METSÄMÄKI, Sari, PULLIAINEN, Jouni, SALMINEN, Miia, et al. Introduction
 to GlobSnow Snow Extent products with considerations for accuracy assessment. 
 Remote Sensing of Environment, 2015, vol. 156, p. 96-108.
 
-v1.4 is implemented based on GlobSnow "Technical note 2: Cloud Detection
+v1.4 is implemented based on GlobSnow "Technical note 2 Cloud Detection
 Algorithm SCDA".
 https://www.globsnow.info/docs/GlobSnow_technical_note2_scda_final_release.pdf
 
@@ -20,6 +20,8 @@ The original syntax has been preserved to easily link back to the sources.
 INPUTS:
     inpath: Path to the folder of a given date containing extracted scenes
                 in .tif format. [string]
+    multi_proc: run functions by multiprocessing using the nb_cores available
+                to drastically decrease computation time.
             
 OUTPUTS:
         {inpath}/NDSI.tif: Normalized Difference Snow Index (NDSI) in a 
@@ -37,6 +39,11 @@ from numpy import asarray as ar
 import rasterio 
 import argparse
 import os
+import time
+import multiprocessing
+from multiprocessing import Pool
+
+multi_proc=False
 
 parser = argparse.ArgumentParser()
 parser.add_argument('inpath')
@@ -210,25 +217,61 @@ def SCDA_v14(R550,R16,BT37,BT11,BT12,NDSI,profile,scene,inpath=args.inpath,NDSI_
 #listing scenes for a given date
 scenes=os.listdir(args.inpath)
 
-for i,scene in enumerate(scenes):
+if multi_proc==False:
+    for i,scene in enumerate(scenes):
+        
+        #saving profile metadata only for the first iteration
+        if i==0:
+            profile=rasterio.open(args.inpath+os.sep+scene+os.sep+'S1_radiance_an_x.tif').profile
+        
+        #calibrating R16
+        R16=rasterio.open(args.inpath+os.sep+scene+os.sep+'S5_radiance_an_x.tif')
+        radiometric_calibration(R16=R16,scene=scene)
+        
+        #loading inputs
+        R550=rasterio.open(args.inpath+os.sep+scene+os.sep+'S1_radiance_an_x.tif').read(1)
+        R16=rasterio.open(args.inpath+os.sep+scene+os.sep+'S5_radiance_an_rc_x.tif').read(1)
+        BT37=rasterio.open(args.inpath+os.sep+scene+os.sep+'S7_BT_an_x.tif').read(1)
+        BT11=rasterio.open(args.inpath+os.sep+scene+os.sep+'S8_BT_an_x.tif').read(1)
+        BT12=rasterio.open(args.inpath+os.sep+scene+os.sep+'S9_BT_an_x.tif').read(1)
+        
+        #running SCDA v2.0 and v1.4
+        cd,NDSI=SCDA_v20(R550=R550,R16=R16,BT37=BT37,BT11=BT11,BT12=BT12,scene=scene,profile=profile)
+        SCDA_v14(R550=R550,R16=R16,BT37=BT37,BT11=BT11,BT12=BT12,NDSI=NDSI,scene=scene,profile=profile)
+        
+        print('%s: done' % scene)
+        
+        
+if multi_proc==True:
     
-    #saving profile metadata only for the first iteration
-    if i==0:
-        profile=rasterio.open(args.inpath+os.sep+scene+os.sep+'S1_radiance_an_x.tif').profile
+    def multiproc_SCDA(k):
+        #saving profile metadata only for the first iteration
+        if k==0:
+            profile=rasterio.open(args.inpath+os.sep+scenes[k]+os.sep+'S1_radiance_an_x.tif').profile
+        
+        #calibrating R16
+        R16=rasterio.open(args.inpath+os.sep+scenes[k]+os.sep+'S5_radiance_an_x.tif')
+        radiometric_calibration(R16=R16,scene=scenes[k])
+        
+        #loading inputs
+        R550=rasterio.open(args.inpath+os.sep+scenes[k]+os.sep+'S1_radiance_an_x.tif').read(1)
+        R16=rasterio.open(args.inpath+os.sep+scenes[k]+os.sep+'S5_radiance_an_rc_x.tif').read(1)
+        BT37=rasterio.open(args.inpath+os.sep+scenes[k]+os.sep+'S7_BT_an_x.tif').read(1)
+        BT11=rasterio.open(args.inpath+os.sep+scenes[k]+os.sep+'S8_BT_an_x.tif').read(1)
+        BT12=rasterio.open(args.inpath+os.sep+scenes[k]+os.sep+'S9_BT_an_x.tif').read(1)
+        
+        #running SCDA v2.0 and v1.4
+        cd,NDSI=SCDA_v20(R550=R550,R16=R16,BT37=BT37,BT11=BT11,BT12=BT12,scene=scenes[k],profile=profile)
+        SCDA_v14(R550=R550,R16=R16,BT37=BT37,BT11=BT11,BT12=BT12,NDSI=NDSI,scene=scenes[k],profile=profile)
+        
+
+    #multiprocessing run    
+    nb_cores=multiprocessing.cpu_count()
+    start_time = time.time()
+    local_time = time.ctime(start_time)
+    if __name__ == '__main__':
+        with Pool(nb_cores) as p:
+            p.map(multiproc_SCDA, list(range(0,len(scenes))))
+
+    print("--- %s seconds ---" % (time.time() - start_time))
     
-    #calibrating R16
-    R16=rasterio.open(args.inpath+os.sep+scene+os.sep+'S5_radiance_an_x.tif')
-    radiometric_calibration(R16=R16,scene=scene)
-    
-    #loading inputs
-    R550=rasterio.open(args.inpath+os.sep+scene+os.sep+'S1_radiance_an_x.tif').read(1)
-    R16=rasterio.open(args.inpath+os.sep+scene+os.sep+'S5_radiance_an_rc_x.tif').read(1)
-    BT37=rasterio.open(args.inpath+os.sep+scene+os.sep+'S7_BT_an_x.tif').read(1)
-    BT11=rasterio.open(args.inpath+os.sep+scene+os.sep+'S8_BT_an_x.tif').read(1)
-    BT12=rasterio.open(args.inpath+os.sep+scene+os.sep+'S9_BT_an_x.tif').read(1)
-    
-    #running SCDA v2.0 and v1.4
-    cd,NDSI=SCDA_v20(R550=R550,R16=R16,BT37=BT37,BT11=BT11,BT12=BT12,scene=scene,profile=profile)
-    SCDA_v14(R550=R550,R16=R16,BT37=BT37,BT11=BT11,BT12=BT12,NDSI=NDSI,scene=scene,profile=profile)
-    
-    print('%s: done' % scene)
