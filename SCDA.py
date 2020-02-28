@@ -268,7 +268,7 @@ if multi_proc==True:
     #multiprocessing run    
     nb_cores=multiprocessing.cpu_count()
     start_time = time.time()
-    local_time = time.ctime(start_time)
+    
     if __name__ == '__main__':
         with Pool(nb_cores) as p:
             p.map(multiproc_SCDA, list(range(0,len(scenes))))
