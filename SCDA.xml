@@ -1,0 +1,136 @@
+<graph id="SCDA">
+  <version>1.0</version>
+
+  <!--
+      SLSTR TOA radiances: 1,5,7,8,9
+  -->
+
+
+  <!--
+      SLSTR operators
+  -->
+
+  <node id="Read_SLSTR">
+    <operator>Read</operator>
+    <parameters>
+      <file>${SLSTRsource}/xfdumanifest.xml</file>
+      <formatName>Sen3</formatName>
+      <!-- https://forum.step.esa.int/t/error-when-selecting-multiple-bands-from-slstr-file/15319 -->
+      <!-- Sen3 ensures that SLSTR is read as multisize -->
+    </parameters>
+  </node>
+
+  <node id="Reproject_SLSTR">
+    <operator>Reproject</operator>
+    <sources><source>Read_SLSTR</source></sources>
+    <parameters>
+      <crs>EPSG:3413</crs>
+      <resampling>Nearest</resampling>
+      <noDataValue>NaN</noDataValue>
+      <includeTiePointGrids>true</includeTiePointGrids>
+    </parameters>
+  </node>
+
+
+  <!--
+      SLSTR bands selection and writing
+  -->
+
+  <node id="BandSelect_01">
+    <operator>BandSelect</operator>
+    <sources>
+      <source>Reproject_SLSTR</source>
+    </sources>
+    <parameters>
+      <sourceBands>S1_radiance_an</sourceBands>
+    </parameters>
+  </node>
+
+  <node id="Write_01">
+    <operator>Write</operator>
+    <sources><sourceProduct>BandSelect_01</sourceProduct></sources>
+    <parameters><file>${targetFolder}/S1_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+  </node>
+
+  <node id="BandSelect_05">
+    <operator>BandSelect</operator>
+    <sources>
+      <source>Reproject_SLSTR</source>
+    </sources>
+    <parameters>
+      <sourceBands>S5_radiance_an</sourceBands>
+    </parameters>
+  </node>
+
+  <node id="Write_05">
+    <operator>Write</operator>
+    <sources><sourceProduct>BandSelect_05</sourceProduct></sources>
+    <parameters><file>${targetFolder}/S5_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+  </node>
+
+  <node id="BandSelect_07">
+    <operator>BandSelect</operator>
+    <sources>
+      <source>Reproject_SLSTR</source>
+    </sources>
+    <parameters>
+      <sourceBands>S7_radiance_an</sourceBands>
+    </parameters>
+  </node>
+
+  <node id="Write_07">
+    <operator>Write</operator>
+    <sources><sourceProduct>BandSelect_07</sourceProduct></sources>
+    <parameters><file>${targetFolder}/S7_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+  </node>
+
+  <node id="BandSelect_08">
+    <operator>BandSelect</operator>
+    <sources>
+      <source>Reproject_SLSTR</source>
+    </sources>
+    <parameters>
+      <sourceBands>S8_radiance_an</sourceBands>
+    </parameters>
+  </node>
+
+  <node id="Write_08">
+    <operator>Write</operator>
+    <sources><sourceProduct>BandSelect_08</sourceProduct></sources>
+    <parameters><file>${targetFolder}/S8_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+  </node>
+
+  <node id="BandSelect_09">
+    <operator>BandSelect</operator>
+    <sources>
+      <source>Reproject_SLSTR</source>
+    </sources>
+    <parameters>
+      <sourceBands>S9_radiance_an</sourceBands>
+    </parameters>
+  </node>
+
+  <node id="Write_09">
+    <operator>Write</operator>
+    <sources><sourceProduct>BandSelect_09</sourceProduct></sources>
+    <parameters><file>${targetFolder}/S9_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+  </node>
+
+  <node id="BandSelect_16">
+    <operator>BandSelect</operator>
+    <sources>
+      <source>Reproject_SLSTR</source>
+    </sources>
+    <parameters>
+      <sourceBands>S16_radiance_an</sourceBands>
+    </parameters>
+  </node>
+
+  <node id="Write_16">
+    <operator>Write</operator>
+    <sources><sourceProduct>BandSelect_16</sourceProduct></sources>
+    <parameters><file>${targetFolder}/S16_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+  </node>
+
+
+</graph>
