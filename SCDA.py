@@ -149,7 +149,6 @@ def SCDA_v20(R550,R16,BT37,BT11,BT12,profile,scene,inpath=args.inpath):
     with rasterio.open(inpath+os.sep+scene+os.sep+'SCDA_v20.tif','w',**profile_cloud_detection) as dst:
         dst.write(cloud_detection.astype(np.int16), 1)
     
-    
     return cloud_detection, NDSI
 
 
