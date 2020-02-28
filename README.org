@@ -67,8 +67,8 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 
 ** SCDA.py
 + Implementation of the Simple Cloud Detection Algorithm (SCDA) v2.0 using SLSTR bands, described in Fig. 5 of METSÄMÄKI et al, 2015. \\
-  METSÄMÄKI, Sari, PULLIAINEN, Jouni, SALMINEN, Miia, et al. Introduction to GlobSnow Snow Extent products with considerations for     
-  accuracy assessment. Remote Sensing of Environment, 2015, vol. 156, p. 96-108.
+  [[METSÄMÄKI, Sari, PULLIAINEN, Jouni, SALMINEN, Miia, et al. Introduction to GlobSnow Snow Extent products with considerations for     
+  accuracy assessment. Remote Sensing of Environment, 2015, vol. 156, p. 96-108.][https://www.sciencedirect.com/science/article/abs/pii/S0034425714003630]]
 + v1.4 is also implemented based on GlobSnow [[https://www.globsnow.info/docs/GlobSnow_technical_note2_scda_final_release.pdf][Technical note 2 Cloud Detection Algorithm SCDA]].
 + The original syntax has been preserved to easily link back to sources.
 
