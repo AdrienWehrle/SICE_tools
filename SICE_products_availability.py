@@ -104,7 +104,7 @@ def data_availability_check(inpath='/srv/home/8675309/SICEv0/',
     output_filename=outpath+'data_availability_from_'+dates_str[0]+'_to_'+dates_str[-1]+'.csv'
     data_availability.to_csv(output_filename,index=False)         
     
-    if visualisation==True:
+    if visualisation:
         vis_step=10 #plot yticks every vis_step tick
         for i in range(0,len(dates_str)):
             if i%vis_step==0:
@@ -127,7 +127,7 @@ def data_availability_check(inpath='/srv/home/8675309/SICEv0/',
         plt.title('Data availability from %s to %s' %(dates_str[0],dates_str[-1]),fontsize=20)
         
 
-        if fig_save==True:
+        if fig_save:
             if fig_extension=='png':
                 plt.savefig(fig_path+'data_avail.png', bbox_inches='tight',dpi=300)
             elif fig_extension=='eps':
@@ -152,7 +152,7 @@ multi_proc=False
 visualisation=False
 nb_cores=8
 
-if multi_proc==True:
+if multi_proc:
     
     import numpy as np
     import pandas as pd
@@ -240,7 +240,7 @@ if multi_proc==True:
     data_availability.to_csv(output_filename,index=False)   
 
     
-    if visualisation==True:
+    if visualisation:
         fig, ax = plt.subplots()
         ax.imshow(data_availability.loc[:, data_availability.columns != 'date'],cmap='bwr_r',aspect='auto')
         ax.set_xticks(np.arange(0,len(variables)))
