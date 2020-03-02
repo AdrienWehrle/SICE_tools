@@ -52,7 +52,7 @@ def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
     #check if running slope or aspect 
     var=adem.split('/')[-1].split('.')[0]
     
-    if verbose==True:
+    if verbose:
       if var=='slope':
           print('\n')
           print('Running extract_arctidem for %s... [SLOPE]' %region)
@@ -72,8 +72,8 @@ def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
     out_tif_3413=outpath+region+'_arcticdem_'+var+'_temp'+'.tif'
     
     #delete outputs if already exists
-    if os.path.exists(out_tif)==True:
-        if verbose==True:
+    if os.path.exists(out_tif):
+        if verbose:
           if var=='slope':
               print('WARNING: Clipped ArcticDEM derived slopes already exist...')
               print('Deleting Clipped ArcticDEM derived slopes...')
@@ -82,8 +82,8 @@ def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
               print('Deleting Clipped ArcticDEM derived slope aspects...')
         os.remove(out_tif)
         
-    if os.path.exists(out_tif_3413)==True:
-        if verbose==True:
+    if os.path.exists(out_tif_3413):
+        if verbose:
           if var=='slope':
               print('WARNING: Reprojected and clipped ArcticDEM derived slopes already exist...')
               print('Deleting reprojected and clipped ArcticDEM derived slopes...')
@@ -112,12 +112,12 @@ def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
         """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
         import json
         return [json.loads(gdf.to_json())['features'][0]['geometry']]
-    if verbose==True:
+    if verbose:
       print('Creating mask...')
     coords = getFeatures(geo)
     
     #clip source image using coords
-    if verbose==True:
+    if verbose:
       print('Clipping input...')
     out_img, out_transform = mask(dataset=data, shapes=coords, crop=True)
     
@@ -132,13 +132,13 @@ def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
                     "width": out_img.shape[2],
                     "transform": out_transform,
                     "crs": regional_mask.crs})
-    if verbose==True:
+    if verbose:
       print('Saving output...')
     with rasterio.open(out_tif, "w",compress='deflate', **out_meta) as dest:
         dest.write(out_img)
         
 
-    if verbose==True:    
+    if verbose:    
       print('Reprojecting output...')
     dst_crs = regional_mask.crs
     with rasterio.open(out_tif) as src:
@@ -157,7 +157,7 @@ def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
                     dst_crs=dst_crs,
                     resampling=Resampling.nearest)
     
-    if verbose==True:
+    if verbose:
       print('Resampling mask to fit output resolution...')
     #source
     src_filename = regional_mask_path
@@ -184,7 +184,7 @@ def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
     
     del dst # Flush
     
-    if verbose==True:
+    if verbose:
       print('Masking output...')
     
     mask=rasterio.open(outpath+region+'mask_resampled_temp.tif')
@@ -234,12 +234,12 @@ for reg in regions:
     out_tif,out_tif_3413,temp=extract_arcticdem(adem='/srv/home/8675309/AW/aspect.img',
                                                 regional_mask=region_path,
                                                 region=reg)
-    if verbose==True:
+    if verbose:
       print('Deleting temporary outputs...')
     os.remove(out_tif)
     os.remove(out_tif_3413)
     os.remove(temp)
     
-    if verbose==True:
+    if verbose:
       for i in range(4):
           print('\n')
