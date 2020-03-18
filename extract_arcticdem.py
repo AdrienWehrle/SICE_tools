@@ -14,7 +14,7 @@ the deletion of temporary outputs.
 """
 
 
-def extract_arcticdem(adem='/srv/home/8675309/AW/slope.img',
+def extract_arcticdem(adem='/srv/home/8675309/AW/arctic_dem/slope.img',
                       region='NovayaZemlya',
                       regional_mask='/srv/home/8675309/AW/masks/NovayaZemlya.tif',
                       outpath='/srv/home/8675309/AW/',
@@ -231,7 +231,7 @@ for reg in regions:
     os.remove(out_tif)
     os.remove(out_tif_3413)
     os.remove(temp)
-    out_tif,out_tif_3413,temp=extract_arcticdem(adem='/srv/home/8675309/AW/aspect.img',
+    out_tif,out_tif_3413,temp=extract_arcticdem(adem='/srv/home/8675309/AW/arctic_dem/aspect.img',
                                                 regional_mask=region_path,
                                                 region=reg)
     if verbose:
