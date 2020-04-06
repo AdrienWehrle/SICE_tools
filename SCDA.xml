@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <graph id="SCDA">
   <version>1.0</version>
 
   <!--
-      SLSTR TOA radiances: 1,5,7,8,9
+      SLSTR Top of Atmosphere radiances (r_TOA): 1,5
+      SLSTR Brightness Temperatures (BT): 7,8,9
   -->
 
 
@@ -20,9 +22,34 @@
     </parameters>
   </node>
 
-  <node id="Reproject_SLSTR">
-    <operator>Reproject</operator>
+  <node id="Rad2Refl_SLSTR">
+    <operator>Rad2Refl</operator>
     <sources><source>Read_SLSTR</source></sources>
+    <parameters>
+      <sensor>SLSTR_500m</sensor>
+      <copyTiePointGrids>true</copyTiePointGrids>
+      <copyFlagBandsAndMasks>true</copyFlagBandsAndMasks>
+      <copyNonSpectralBands>true</copyNonSpectralBands>
+    </parameters>
+  </node>
+  
+  <node id="Resample_SLSTR_R">
+    <operator>Resample</operator>
+    <sources>
+      <sourceProduct refid="Rad2Refl_SLSTR"/>
+    </sources>
+    <parameters>
+      <referenceBand>S1_reflectance_an</referenceBand>
+      <upsampling>Nearest</upsampling>
+      <downsampling>First</downsampling>
+      <flagDownsampling>First</flagDownsampling>
+      <resampleOnPyramidLevels>true</resampleOnPyramidLevels>
+    </parameters>
+  </node>
+  
+  <node id="Reproject_SLSTR_R">
+    <operator>Reproject</operator>
+    <sources><source>Resample_SLSTR_R</source></sources>
     <parameters>
       <crs>EPSG:3413</crs>
       <resampling>Nearest</resampling>
@@ -31,6 +58,30 @@
     </parameters>
   </node>
 
+  <node id="Resample_SLSTR_BT">
+    <operator>Resample</operator>
+    <sources>
+      <sourceProduct refid="Read_SLSTR"/>
+    </sources>
+    <parameters>
+      <referenceBand>S1_radiance_an</referenceBand>
+      <upsampling>Nearest</upsampling>
+      <downsampling>First</downsampling>
+      <flagDownsampling>First</flagDownsampling>
+      <resampleOnPyramidLevels>true</resampleOnPyramidLevels>
+    </parameters>
+  </node>
+
+  <node id="Reproject_SLSTR_BT">
+    <operator>Reproject</operator>
+    <sources><source>Resample_SLSTR_BT</source></sources>
+    <parameters>
+      <crs>EPSG:3413</crs>
+      <resampling>Nearest</resampling>
+      <noDataValue>NaN</noDataValue>
+      <includeTiePointGrids>true</includeTiePointGrids>
+    </parameters>
+  </node>
 
   <!--
       SLSTR bands selection and writing
@@ -39,10 +90,10 @@
   <node id="BandSelect_01">
     <operator>BandSelect</operator>
     <sources>
-      <source>Reproject_SLSTR</source>
+      <source>Reproject_SLSTR_R</source>
     </sources>
     <parameters>
-      <sourceBands>S1_radiance_an</sourceBands>
+      <sourceBands>S1_reflectance_an</sourceBands>
     </parameters>
   </node>
 
@@ -55,10 +106,10 @@
   <node id="BandSelect_05">
     <operator>BandSelect</operator>
     <sources>
-      <source>Reproject_SLSTR</source>
+      <source>Reproject_SLSTR_R</source>
     </sources>
     <parameters>
-      <sourceBands>S5_radiance_an</sourceBands>
+      <sourceBands>S5_reflectance_an</sourceBands>
     </parameters>
   </node>
 
@@ -71,65 +122,49 @@
   <node id="BandSelect_07">
     <operator>BandSelect</operator>
     <sources>
-      <source>Reproject_SLSTR</source>
+      <source>Reproject_SLSTR_BT</source>
     </sources>
     <parameters>
-      <sourceBands>S7_radiance_an</sourceBands>
+      <sourceBands>S7_BT_in</sourceBands>
     </parameters>
   </node>
 
   <node id="Write_07">
     <operator>Write</operator>
     <sources><sourceProduct>BandSelect_07</sourceProduct></sources>
-    <parameters><file>${targetFolder}/S7_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+    <parameters><file>${targetFolder}/S7_BT_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
   </node>
 
   <node id="BandSelect_08">
     <operator>BandSelect</operator>
     <sources>
-      <source>Reproject_SLSTR</source>
+      <source>Reproject_SLSTR_BT</source>
     </sources>
     <parameters>
-      <sourceBands>S8_radiance_an</sourceBands>
+      <sourceBands>S8_BT_in</sourceBands>
     </parameters>
   </node>
 
   <node id="Write_08">
     <operator>Write</operator>
     <sources><sourceProduct>BandSelect_08</sourceProduct></sources>
-    <parameters><file>${targetFolder}/S8_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+    <parameters><file>${targetFolder}/S8_BT_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
   </node>
 
   <node id="BandSelect_09">
     <operator>BandSelect</operator>
     <sources>
-      <source>Reproject_SLSTR</source>
+      <source>Reproject_SLSTR_BT</source>
     </sources>
     <parameters>
-      <sourceBands>S9_radiance_an</sourceBands>
+      <sourceBands>S9_BT_in</sourceBands>
     </parameters>
   </node>
 
   <node id="Write_09">
     <operator>Write</operator>
     <sources><sourceProduct>BandSelect_09</sourceProduct></sources>
-    <parameters><file>${targetFolder}/S9_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
-  </node>
-
-  <node id="BandSelect_16">
-    <operator>BandSelect</operator>
-    <sources>
-      <source>Reproject_SLSTR</source>
-    </sources>
-    <parameters>
-      <sourceBands>S16_radiance_an</sourceBands>
-    </parameters>
-  </node>
-
-  <node id="Write_16">
-    <operator>Write</operator>
-    <sources><sourceProduct>BandSelect_16</sourceProduct></sources>
-    <parameters><file>${targetFolder}/S16_radiance_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
+    <parameters><file>${targetFolder}/S9_BT_an_x.tif</file><formatName>GeoTIFF</formatName></parameters>
   </node>
 
 
