@@ -72,6 +72,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + v1.4 is also implemented based on the GlobSnow [[https://www.globsnow.info/docs/GlobSnow_technical_note2_scda_final_release.pdf][Technical note 2: Cloud Detection Algorithm SCDA]].
 + Channel S5 is calibrated as indicated in the [[https://sentinel.esa.int/documents/247904/2731673/Sentinel-3A-SLSTR-Product-Notice-Level-1B-NRT][Sentinel-3 Product Notice - SLSTR]].
 + The original syntax has been preserved to easily link back to sources.
++ The algorithm can be run by multiprocessing to drastically decrease computation time.
 
 ** SCDA.xml
 + Extracts, resamples and reprojects SLSTR bands needed for [[./SCDA.py]]. 
