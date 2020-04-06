@@ -220,8 +220,7 @@ if multi_proc==False:
     for i,scene in enumerate(scenes):
         
         #saving profile metadata only for the first iteration
-        if i==0:
-            profile=rasterio.open(args.inpath+os.sep+scene+os.sep+'S1_radiance_an_x.tif').profile
+        profile=rasterio.open(args.inpath+os.sep+scene+os.sep+'S1_radiance_an_x.tif').profile
         
         #calibrating R16
         R16=rasterio.open(args.inpath+os.sep+scene+os.sep+'S5_radiance_an_x.tif')
