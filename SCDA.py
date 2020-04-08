@@ -82,12 +82,14 @@ def radiometric_calibration(R16,scene,inpath=args.inpath):
 
 
     
-def SCDA_v20(R550,R16,BT37,BT11,BT12,profile,scene,inpath=args.inpath):
+def SCDA_v20(R550,R16,BT37,BT11,BT12,profile,scene,inpath=args.inpath, SICE_toolchain=True):
     '''
     
     INPUTS:
         inpath: Path to the folder of a given date containing extracted scenes
                 in .tif format. [string]
+        SICE_toolchain: if True: cloud=255, clear=1
+                        if False: cloud=1, clear=0
         profile: Profile to save outputs. [rasterio.profiles.Profile]
         scene: Scene on which to compute the SCDA. [string]
         R550, R16: Top of Atmosphere (TOA) reflectances for channels S1 and S5.
@@ -101,7 +103,7 @@ def SCDA_v20(R550,R16,BT37,BT11,BT12,profile,scene,inpath=args.inpath):
                            .tif file, stored in {inpath}. [.tif]
         {inpath}/SCDA.tif: Simple Cloud Detection Algorithm (SCDA) results 
                            in a .tif file, stored in {inpath}. 
-                           True = presence of clouds [.tif]
+                           clouds=1, clear=0 [.tif]
          
     '''
     
@@ -144,6 +146,10 @@ def SCDA_v20(R550,R16,BT37,BT11,BT12,profile,scene,inpath=args.inpath):
 
     cloud_detection[cloud_detection==False]=t6[cloud_detection==False]
     
+    if SICE_toolchain:
+        cloud_detection[cloud_detection==True]=255
+        cloud_detection[cloud_detection==False]=1
+    
     #writing results
     profile_cloud_detection=profile.copy()
     profile_cloud_detection.update(dtype=rasterio.int16)
@@ -155,12 +161,14 @@ def SCDA_v20(R550,R16,BT37,BT11,BT12,profile,scene,inpath=args.inpath):
 
 
 
-def SCDA_v14(R550,R16,BT37,BT11,BT12,NDSI,profile,scene,inpath=args.inpath,NDSI_cp=False):
+def SCDA_v14(R550,R16,BT37,BT11,BT12,NDSI,profile,scene,inpath=args.inpath,NDSI_cp=False, SICE_toolchain=True):
     '''
     
     INPUTS:
         inpath: Path to the folder of a given date containing extracted scenes
                 in .tif format. [string]
+        SICE_toolchain: if True: cloud=255, clear=1
+                        if False: cloud=1, clear=0
         profile: Profile to save outputs. [rasterio.profiles.Profile]
         scene: Scene on which to compute SCDA. [string]
         R550, R16: Top of Atmosphere (TOA) reflectances for channels S1 and S5.
@@ -177,7 +185,7 @@ def SCDA_v14(R550,R16,BT37,BT11,BT12,NDSI,profile,scene,inpath=args.inpath,NDSI_
                                .tif file, stored in {inpath}. [.tif]
         {inpath}/SCDA.tif: Simple Cloud Detection Algorithm (SCDA) results 
                            in a .tif file, stored in {inpath}. 
-                           True = presence of clouds [.tif]
+                           clouds=1, clear=0 [.tif]
          
     '''
     
@@ -200,6 +208,10 @@ def SCDA_v14(R550,R16,BT37,BT11,BT12,NDSI,profile,scene,inpath=args.inpath,NDSI_
        
     cloud_detection=t1
     cloud_detection[cloud_detection==False]=t2[cloud_detection==False]
+    
+    if SICE_toolchain:
+        cloud_detection[cloud_detection==True]=255
+        cloud_detection[cloud_detection==False]=1
     
     #writing results
     profile_cloud_detection=profile.copy()
