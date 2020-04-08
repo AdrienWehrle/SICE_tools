@@ -3,7 +3,7 @@
   <version>1.0</version>
 
   <!--
-      SLSTR Top of Atmosphere reflectances (SX_radiance_an): 1,5
+      SLSTR Top of Atmosphere reflectances (SX_reflectance_an): 1,5
       SLSTR Brightness Temperatures (SX_BT_in): 7,8,9
   -->
 
