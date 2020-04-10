@@ -33,7 +33,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 ** extract_esalc.py
 + Clips, reprojects and compresses [[https://www.esa-landcover-cci.org/?q=node/197][ESA global Land Cover (ESALC) products]] (downloadable [[https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-land-cover?tab=form][here]]) for a given region. Converts the resulting .tif file to be usable in the [[https://github.com/mankoff/SICE][SICE toolchain]]. 
 + Iceland, Svalbard, FransJosefLand, NovayaZemlya, SevernayaZemlya, JanMayen, NorthernArcticCanada, SouthernArcticCanada, Norway, Beaufort and AntarcticPeninsula are currently implemented.
-+ Results have been merged in the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]] and can be found [[https://github.com/mankoff/SICE/tree/master/masks][here]].
++ Results have been merged with the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]] and can be found [[https://github.com/mankoff/SICE/tree/master/masks][here]].
 + A description of the 22 [[https://www.esa-landcover-cci.org/?q=node/197][ESA global Land Cover (ESALC) products]] can be found [[https://www.esa-landcover-cci.org/?q=webfm_send/84][here]].
 
 ** extract_arcticdem.py
@@ -73,9 +73,10 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + Channel S5 is calibrated as indicated in the [[https://sentinel.esa.int/documents/247904/2731673/Sentinel-3A-SLSTR-Product-Notice-Level-1B-NRT][Sentinel-3 Product Notice - SLSTR]].
 + The original syntax has been preserved to easily link back to sources.
 + The algorithm can be run by multiprocessing to drastically decrease computation time.
-
++ This code has been merged with the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]] and can be found             [[https://github.com/mankoff/SICE/blob/master/SCDA.py][here]]. The associated [[./SCDA.xml]] has been added in                       
+  [[https://github.com/mankoff/SICE/blob/master/S3.xml][S3.xml]].
+ 
 ** SCDA.xml
 + Extracts, resamples and reprojects SLSTR bands needed for [[./SCDA.py]]. 
 + The [[https://github.com/mankoff/SICE/blob/master/S3_proc.sh][SICE toolchain]] with the resulting   
   [[https://github.com/mankoff/SICE#development-environment][environment specifications]] has been used to run this file. 
-+ Functions can be run by multiprocessing to drastically decrease computation time.
