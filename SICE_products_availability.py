@@ -7,10 +7,8 @@ Check the availability of SICE products.
 At the end of the script, the user can set the option multi_proc to True if the processing 
 is too long. It allows to run the function by multiprocessing using the nb_cores (given by 
 the user) and drastically decrease computation time. 
+
 """
-
-#variables=['OAA','OZA','Oa01_reflectance','Oa02_reflectance','Oa03_reflectance','Oa04_reflectance','Oa05_reflectance']
-
 
 def data_availability_check(inpath='/srv/home/8675309/SICEv0/',
                             outpath='/srv/home/8675309/data_availability/',
@@ -254,27 +252,3 @@ if multi_proc:
         plt.xticks(rotation=80)
         ax.grid(which='minor',color='k', linewidth=2)
         plt.title('Data availability from %s to %s' %(dates_str[0],dates_str[-1]),fontsize=20)
-
-du_JEB=0
-if du_JEB:
-    data_availability_check(inpath='/Users/jason/Dropbox/S3/mosaic/SICEv0/',
-                            outpath='/Users/jason/Dropbox/AW/data_availability_stats/',
-                            variables=['r_TOA_21','BBA_emp'],
-                            visualisation=True,
-                            fig_save=True,
-                            fig_path='/Users/jason/Dropbox/AW/',
-                            fig_extension='eps')
-    
-du_AW=1
-if du_AW:
-    data_availability_check(visualisation=False)
-
-
-du_PTEP=1
-if du_PTEP:
-    data_availability_check(inpath='/srv/home/8675309/SICEv0/',
-                            outpath='/srv/home/8675309/data_availability/',
-                            visualisation=False,
-                            variables=['r_TOA_21','BBA_emp'],
-                            fig_path='/srv/home/8675309/data_availability/',
-                            fig_extension='png')
