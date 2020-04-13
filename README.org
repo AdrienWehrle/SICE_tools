@@ -49,7 +49,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 ** SICE_products_availability.py
 
 + Checks the availability of the [[https://github.com/mankoff/SICE][SICE toolchain]] products using a list or a csv file containing the product names.
-+ Option to run the functions by multiprocessing to drastically decrease computation time.
++ Option to run the functions using multiprocessing to drastically decrease computation time.
 + Outputs can be saved in a csv file and/or represented in a figure.
 
 ** get_correlations.py
@@ -59,7 +59,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
   percentage of variations between the Bottom Of Atmosphere Reflectance (BOAR) and the Intrinsic Bottom Of Atmosphere Reflectance 
   (IBOAR) determined by [[./get_IBOAR.py]]. This example can be easily modified with other variables and      
   another function to apply.
-+ The function is run by multiprocessing to drastically decrease computation time.
++ The function is run using multiprocessing to drastically decrease computation time.
 
 ** sice_tools_gui.py
 + Basis for a simple GUI to play interactively with different tools.
@@ -72,7 +72,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + v1.4 is also implemented based on the GlobSnow [[https://www.globsnow.info/docs/GlobSnow_technical_note2_scda_final_release.pdf][Technical note 2: Cloud Detection Algorithm SCDA]].
 + Channel S5 is calibrated as indicated in the [[https://sentinel.esa.int/documents/247904/2731673/Sentinel-3A-SLSTR-Product-Notice-Level-1B-NRT][Sentinel-3 Product Notice - SLSTR]].
 + The original syntax has been preserved to easily link back to sources.
-+ The algorithm can be run by multiprocessing to drastically decrease computation time.
++ The algorithm can be run using multiprocessing to drastically decrease computation time.
 + This code has been merged with the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]] and can be found             [[https://github.com/mankoff/SICE/blob/master/SCDA.py][here]]. The associated [[./SCDA.xml]] has been added in                       
   [[https://github.com/mankoff/SICE/blob/master/S3.xml][S3.xml]].
  
