@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Wrapper for running SICE pipeline
+# Wrapper for running SICE pipeline (https://github.com/mankoff/SICE)
 
 set -o errexit
 set -o nounset
