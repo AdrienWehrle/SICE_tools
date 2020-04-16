@@ -14,6 +14,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
   - [[#SCDApy][SCDA.py]]
   - [[#SCDAxml][SCDA.xml]]
   - [[#sicepy_multiprocessingpy][sicepy_multiprocessing.py]]
+  - [[#S3wrappersh][S3_wrapper.sh]]
   
   
 * Development Environment
@@ -82,3 +83,6 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
   
 ** sicepy_multiprocessing.py
 + Runs [[https://github.com/mankoff/SICE/blob/master/sice.py][sice.py]], part of the [[https://github.com/mankoff/SICE][SICE toolchain]], using python multiprocessing with different strategies depending on whether the user runs one or multiple years and dates. 
+
+** S3_wrapper.sh
++ Wrapper of the [[https://github.com/mankoff/SICE][SICE toolchain]] containing the modifications needed to run the option associated with [[./sicepy_multiprocessing.py]].
