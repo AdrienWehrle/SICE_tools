@@ -49,13 +49,11 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + Uses ArcticDEM derived slopes and slope aspects generated using [[./extract_arcticdem.py]] and Rayleigh corrected Bottom of atmosphere Reflectances (BRR) using the [[https://step.esa.int/main/toolboxes/snap/)][SNAP]] Rayleigh Correction Processor. 
 
 ** SICE_products_availability.py
-
 + Checks the availability of the [[https://github.com/mankoff/SICE][SICE toolchain]] products using a list or a csv file containing the product names.
 + Option to run the functions using multiprocessing to drastically decrease computation time.
-+ Outputs can be saved in a csv file and/or represented in a figure.
++ Outputs can be visualised through a figure and/or saved in a csv file.
 
 ** get_correlations.py
-
 + Computes the correlation between two variables stored in rasters over a given specific area.
 + The default variables are the Snow Grain Diameter (SGD) computed by the [[https://github.com/mankoff/SICE][SICE toolchain]] and the   
   percentage of variations between the Bottom Of Atmosphere Reflectance (BOAR) and the Intrinsic Bottom Of Atmosphere Reflectance 
