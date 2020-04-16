@@ -65,7 +65,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 
 ** sice_tools_gui.py
 + Basis for a simple GUI to play interactively with different tools.
-+ Are currently implemented: file open dialog, matplotlib-hosted visualisation conserving projections, 1D profile creation and profile save dialog. 
++ A file open dialog, a matplotlib-hosted visualisation conserving projections (using [[https://rasterio.readthedocs.io/en/latest/][rasterio]]), a 1D profile creation as well as a file save dialog are currently implemented. 
 
 ** SCDA.py
 + Implementation of the Simple Cloud Detection Algorithm (SCDA) v2.0 using SLSTR bands, described in Fig. 5 of METSÄMÄKI et al, 2015. \\
