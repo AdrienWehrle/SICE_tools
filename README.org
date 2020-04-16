@@ -47,6 +47,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + Computes Effective Solar Zenith Angles (SZA) and Viewing Zenith Angles (VZA) based on [[https://github.com/maximlamare/s3_tools/blob/master/change_tiepoint.py][s3_tools]]. 
 + The Intrinsic Bottom of Atmosphere Reflectance (IBOAR) is calculated for a given scene and given bands. 
 + Uses ArcticDEM derived slopes and slope aspects generated using [[./extract_arcticdem.py]] and Rayleigh corrected Bottom of atmosphere Reflectances (BRR) using the [[https://step.esa.int/main/toolboxes/snap/)][SNAP]] Rayleigh Correction Processor. 
++ This code has been applied to Top of Atmosphere (TOA) reflectances in the [[https://github.com/mankoff/SICE][SICE toolchain]] to implement a slope correction for the albedo and the snow grain diameter. 
 
 ** SICE_products_availability.py
 + Checks the availability of the [[https://github.com/mankoff/SICE][SICE toolchain]] products using a list or a csv file containing the product names.
