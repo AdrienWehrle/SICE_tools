@@ -8,6 +8,7 @@ Multiprocessing is used over years if only one day per year, over days of the
 different years otherwise.  
 If two days are given, range inbetween day1 and day2. If more than two days,
 given days are run. 
+"#!/usr/bin/env python" needs to be added as the first line of sice.py. 
 
 """
 
