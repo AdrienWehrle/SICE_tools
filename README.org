@@ -81,4 +81,4 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + This file has been merged with [[https://github.com/mankoff/SICE/blob/master/S3.xml][S3.xml]] in the the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]].
   
 ** sicepy_multiprocessing.py
-+ Run [[https://github.com/mankoff/SICE/blob/master/sice.py][sice.py]], part of the [[https://github.com/mankoff/SICE][SICE toolchain]], using python multiprocessing with different strategies depending on whether the user runs one or multiple years and dates. 
++ Runs [[https://github.com/mankoff/SICE/blob/master/sice.py][sice.py]], part of the [[https://github.com/mankoff/SICE][SICE toolchain]], using python multiprocessing with different strategies depending on whether the user runs one or multiple years and dates. 
