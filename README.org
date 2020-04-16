@@ -13,6 +13,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
   - [[#sice_tools_guipy][sice_tools_gui.py]]
   - [[#SCDApy][SCDA.py]]
   - [[#SCDAxml][SCDA.xml]]
+  - [[#sicepy_multiprocessingpy][sicepy_multiprocessing.py]]
   
   
 * Development Environment
@@ -73,10 +74,11 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + Channel S5 is calibrated as indicated in the [[https://sentinel.esa.int/documents/247904/2731673/Sentinel-3A-SLSTR-Product-Notice-Level-1B-NRT][Sentinel-3 Product Notice - SLSTR]].
 + The original syntax has been preserved to easily link back to sources.
 + The algorithm can be run using multiprocessing to drastically decrease computation time.
-+ This code has been merged with the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]] and can be found             [[https://github.com/mankoff/SICE/blob/master/SCDA.py][here]]. The associated [[./SCDA.xml]] has been added in                       
-  [[https://github.com/mankoff/SICE/blob/master/S3.xml][S3.xml]].
++ This code has been merged with the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]] and can be found             [[https://github.com/mankoff/SICE/blob/master/SCDA.py][here]]. 
  
 ** SCDA.xml
 + Extracts, resamples and reprojects SLSTR bands needed for [[./SCDA.py]]. 
-+ The [[https://github.com/mankoff/SICE/blob/master/S3_proc.sh][SICE toolchain]] with the resulting   
-  [[https://github.com/mankoff/SICE#development-environment][environment specifications]] has been used to run this file. 
++ This file has been merged with [[https://github.com/mankoff/SICE/blob/master/S3.xml][S3.xml]] in the the master branch of the [[https://github.com/mankoff/SICE][SICE toolchain]].
+  
+** sicepy_multiprocessing.py
++ Run [[https://github.com/mankoff/SICE/blob/master/sice.py][sice.py]], part of the [[https://github.com/mankoff/SICE][SICE toolchain]], using python multiprocessing with different strategies depending on whether the user runs one or multiple years and dates. 
