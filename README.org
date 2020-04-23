@@ -15,6 +15,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
   - [[#SCDAxml][SCDA.xml]]
   - [[#sicepy_multiprocessingpy][sicepy_multiprocessing.py]]
   - [[#S3_wrappersh][S3_wrapper.sh]]
+  - [[#S3_NRTsh][S3_NRT.sh]]
   
   
 * Development Environment
@@ -85,3 +86,12 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 
 ** S3_wrapper.sh
 + Wrapper of the [[https://github.com/mankoff/SICE][SICE toolchain]] containing the modifications needed to run the option associated with [[./sicepy_multiprocessing.py]].
+
+** S3_NRT.sh
++ Wrapper of the [[https://github.com/mankoff/SICE][SICE toolchain]] modified to run Near Real-Time (NRT). 
++ Example of a Cron job: 
+  #+BEGIN_SRC bash :results verbatim
+    # m h  dom mon dow   command
+    00 12 * * * /bin/bash -c "/path/to/wrapper/S3_NRT.sh" > /path/to/log/log_NRT.txt
+  #+END_SRC
+
