@@ -49,16 +49,16 @@ for region in "${regions[@]}"; do
 
   # CREODIAS
   SEN3_local=/eodata/Sentinel-3
-  SEN3_source=/sice-data/AW/NRT_regions/${region}/S3
-  proc_root=/sice-data/AW/NRT_regions/${region}/proc
-  mosaic_root=/sice-data/AW/NRT_regions/${region}/mosaic
+  SEN3_source=/sice-data/SICE/${region}/S3
+  proc_root=/sice-data/SICE/${region}/proc
+  mosaic_root=/sice-data/SICE/${region}/mosaic
 
-  mkdir /sice-data/AW/NRT_regions/${region}
+  mkdir /sice-data/ASICE/${region}
 
   ### Fetch one day of OLCI & SLSTR scenes over Greenland
   ## Use local files (PTEP, DIAS, etc.)
   ./dhusget_wrapper.sh -d ${date} -l ${SEN3_local} -o ${SEN3_source}/${year}/${date} \
-                     -f ${region} -u baptistevdx -p geus1234
+                     -f ${region} -u username -p password
 
   # SNAP: Reproject, calculate reflectance, extract bands, etc.
   ./S3_proc.sh -i ${SEN3_source}/${year}/${date} -o ${proc_root}/${date} -X S3.xml -t
