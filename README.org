@@ -88,7 +88,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + Wrapper of the [[https://github.com/mankoff/SICE][SICE toolchain]] containing the modifications needed to run the option associated with [[./sicepy_multiprocessing.py]].
 
 ** S3_NRT.sh
-+ Wrapper of the [[https://github.com/mankoff/SICE][SICE toolchain]] modified to run Near Real-Time (NRT). 
++ Wrapper of the [[https://github.com/mankoff/SICE][SICE toolchain]] modified to run Near Real-Time (NRT) over the 12 implemented arctic regions (Greenland, Iceland, Svalbard, Novaya Zemlya, Severnaya Zemlya, Frans Josef Land, Northern Arctic Canada, Southern Arctic Canada, Jan Mayen, Norway, Beaufort).
 + Example of a Cron job: 
   #+BEGIN_SRC bash :results verbatim
     # m h  dom mon dow   command
