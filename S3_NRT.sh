@@ -2,6 +2,10 @@
 
 # Wrapper for running SICE pipeline Near Real-Time (NRT) 
 
+# example of cron job:
+# m h  dom mon dow   command
+# 00 12 * * * /bin/bash -c "/path/to/wrapper/S3_NRT.sh" > /path/to/log/log_NRT.txt
+
 # use SNAP gpt
 export PATH=/srv/home/8675309/local/snap/bin:${PATH}
 
