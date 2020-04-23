@@ -42,21 +42,34 @@ date=$(date -d '-2days' "+%Y-%m-%d")
 year=$(date "+%Y")
 
 
- ### Fetch one day of OLCI & SLSTR scenes over Greenland
- 
- ## Use local files (PTEP, DIAS, etc.)
-./dhusget_wrapper.sh -d ${date} -l ${SEN3_local} -o ${SEN3_source}/${year}/${date} \
-    		     -f Iceland -u username -p password
- 
- # SNAP: Reproject, calculate reflectance, extract bands, etc.
-./S3_proc.sh -i ${SEN3_source}/${year}/${date} -o ${proc_root}/${date} -X S3.xml -t
-    
- # Run the Simple Cloud Detection Algorithm (SCDA)
-python ./SCDA.py ${proc_root}/${date}
-    
- # Mosaic
-./dm.sh ${date} ${proc_root}/${date} ${mosaic_root}
+declare -a regions=("Greenland" "Iceland" "Svalbard" "NovayaZemlya" "SevernayaZemlya" "FransJosefLand" "NorthernArcticCanada" "SouthernArcticCanada" "JanMayen" "Norway" "Beaufort")
 
- # SICE
-python ./sice.py ${mosaic_root}/${date}
-    
+
+for region in "${regions[@]}"; do
+
+  # CREODIAS
+  SEN3_local=/eodata/Sentinel-3
+  SEN3_source=/sice-data/AW/NRT_regions/${region}/S3
+  proc_root=/sice-data/AW/NRT_regions/${region}/proc
+  mosaic_root=/sice-data/AW/NRT_regions/${region}/mosaic
+
+  mkdir /sice-data/AW/NRT_regions/${region}
+
+  ### Fetch one day of OLCI & SLSTR scenes over Greenland
+  ## Use local files (PTEP, DIAS, etc.)
+  ./dhusget_wrapper.sh -d ${date} -l ${SEN3_local} -o ${SEN3_source}/${year}/${date} \
+                     -f ${region} -u baptistevdx -p geus1234
+
+  # SNAP: Reproject, calculate reflectance, extract bands, etc.
+  ./S3_proc.sh -i ${SEN3_source}/${year}/${date} -o ${proc_root}/${date} -X S3.xml -t
+
+  # Run the Simple Cloud Detection Algorithm (SCDA)
+  python ./SCDA.py ${proc_root}/${date}
+
+  # Mosaic
+  ./dm.sh ${date} ${proc_root}/${date} ${mosaic_root}
+
+  # SICE
+  python ./sice.py ${mosaic_root}/${date}
+
+done
