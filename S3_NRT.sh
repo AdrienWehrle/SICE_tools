@@ -22,12 +22,6 @@ log_info() { echo -e "${green}[$(date --iso-8601=seconds)] [INFO] ${@}${nc}"; }
 log_warn() { echo -e "${orange}[$(date --iso-8601=seconds)] [WARN] ${@}${nc}"; }
 log_err() { echo -e "${red}[$(date --iso-8601=seconds)] [ERR] ${@}${nc}" 1>&2; }
 
-# CREODIAS
-SEN3_local=/eodata/Sentinel-3
-SEN3_source=/sice-data/AW/NRT_Iceland_nc/S3
-proc_root=/sice-data/AW/NRT_Iceland_nc/proc
-mosaic_root=/sice-data/AW/NRT_Iceland_nc/mosaic
-
 # change directory to the current folder
 cd "${0%/*}"
 
