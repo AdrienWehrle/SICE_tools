@@ -154,10 +154,16 @@ def extract_esalc(esa_lc='/srv/home/8675309/AW/C3S-LC-L4-LCCS-Map-300m-P1Y-2018-
         elif region=='Beaufort':
             minx, miny = -148.87, 68.28
             maxx, maxy = -122.28, 75.39
-            bbox = box(minx, miny, maxx, maxy)
+            bbox = box(minx, miny, maxx, maxy) 
+            
         elif region=='AntarcticPeninsula':
             minx, miny = -78.23, -74.76
             maxx, maxy = -49.23, -57.98
+            bbox = box(minx, miny, maxx, maxy)
+            
+        elif region=='AlaskaYukon':
+            minx, miny = -158.07, 54.96
+            maxx, maxy = -127.22, 64.42
             bbox = box(minx, miny, maxx, maxy)
             
         else:
