@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-@author: Adrien Wehrlé, GEUS (Geological Survey of Denmark and Greenland)
+@author: Adrien Wehrlé, Jason E. Box, GEUS (Geological Survey of Denmark and Greenland)
 
 Clip, reproject and compress ESA Land Classes (ESALC) for a given region. Convert the 
 resulting .tif file to be used as a SICE mask.
