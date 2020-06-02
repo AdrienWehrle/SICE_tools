@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-@author: Adrien Wehrlé, GEUS (Geological Survey of Denmark and Greenland), SICE project
+@author: Adrien Wehrlé, Jason E. Box, GEUS (Geological Survey of Denmark and Greenland), SICE project
 
 Check the availability of SICE products.
 At the end of the script, the user can set the option multi_proc to True if the processing 
