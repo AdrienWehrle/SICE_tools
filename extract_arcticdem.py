@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-@author: Adrien Wehrlé, GEUS (Geological Survey of Denmark and Greenland)
+@author: Adrien Wehrlé, Jason E. Box, GEUS (Geological Survey of Denmark and Greenland)
 
 Clip ArcticDEM derived slopes for a given region based on a mask. 
 Slopes have been processed using SNAP slopes calculator.
