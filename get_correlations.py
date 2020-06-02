@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-@author: Adrien Wehrlé, GEUS (Geological Survey of Denmark and Greenland)
+@author: Adrien Wehrlé, Jason E. Box, GEUS (Geological Survey of Denmark and Greenland)
 
 Compute the correlation (linear regression) between two variables stored in 
 rasters over a given specific area. 
