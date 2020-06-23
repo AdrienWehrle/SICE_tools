@@ -106,7 +106,7 @@ def SICE_processing(k):
             BBAs_window[:,:,w]=planar_BBA
         
         
-        #compute deviations for each pixel along rolling_window
+        #compute deviations from median for each pixel along rolling_window
         deviations=np.abs(BBAs_window-np.nanmedian(BBAs_window,2,keepdims=True))\
                           /np.nanmedian(BBAs_window,2,keepdims=True)
         
