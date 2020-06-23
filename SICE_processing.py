@@ -5,10 +5,10 @@
 
 
 Computation of an empirical Broandband Albedo (BBA) from Top of Atmosphere reflectances (r_TOA), 
-further combined with SICE planar shortwave broadband albedo values when the latter are below 
-bare ice albedo (0.565).
+further combined planar shortwave broadband albedo values when the latter are below bare ice 
+albedo (0.565).
 
-Application of a temporal filtering based on outlier detection modified after Box et al (2017).
+Application of a temporal filtering based on outlier detection modified after Box et al, 2017.
 
 Production of a daily cumulative ("gapless") product (updating pixel values when an area is 
 considered cloud free).
@@ -25,9 +25,9 @@ from multiprocessing import Pool, freeze_support
 
 
 #folder containing SICE outputs
-SICE_path='H:/SICE_v13_v14/SICEP/'
+SICE_path='H:/SICE/'
 #folder to store outputs
-output_path='H:/SICE_op_test4/'
+output_path='H:/SICE_PP/'
 
 #list SICE folders of a given year
 year=2019
