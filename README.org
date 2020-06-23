@@ -16,6 +16,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
   - [[#sicepy_multiprocessingpy][sicepy_multiprocessing.py]]
   - [[#S3_wrappersh][S3_wrapper.sh]]
   - [[#S3_NRTsh][S3_NRT.sh]]
+  - [[#SICE_processingpy][SICE_processing.py]]
   
   
 * Development Environment
@@ -68,7 +69,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
 + A file open dialog, a matplotlib-hosted visualisation conserving projections (using [[https://rasterio.readthedocs.io/en/latest/][rasterio]]), a 1D profile creation as well as a file save dialog are currently implemented. 
 
 ** SCDA.py
-+ Implementation of the Simple Cloud Detection Algorithm (SCDA) v2.0 using SLSTR bands, described in Fig. 5 of METSÄMÄKI et al, 2015. \\
++ Implementation of the Simple Cloud Detection Algorithm (SCDA) v2.0 using SLSTR bands, described in Fig. 5 of Metsämäki et al, 2015. \\
   [[https://www.sciencedirect.com/science/article/abs/pii/S0034425714003630][METSÄMÄKI, Sari, PULLIAINEN, Jouni, SALMINEN, Miia, et al. Introduction to GlobSnow Snow Extent products with considerations for     
   accuracy assessment. Remote Sensing of Environment, 2015, vol. 156, p. 96-108.]]
 + v1.4 is also implemented based on the GlobSnow [[https://www.globsnow.info/docs/GlobSnow_technical_note2_scda_final_release.pdf][Technical note 2: Cloud Detection Algorithm SCDA]].
@@ -94,4 +95,12 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
     # m h  dom mon dow   command
     00 12 * * * /bin/bash -c "/path/to/wrapper/S3_NRT.sh" > /path/to/log/log_NRT.txt
   #+END_SRC
+  
+** SICE_processing.py
++ Processes albedo outputs of the [[https://github.com/mankoff/SICE][SICE toolchain]] (developed at v1.4). 
++ Computes an empirical Broandband Albedo (BBA) from OLCI Top of Atmosphere reflectances (r_TOA), 
+  further combined with planar shortwave broadband albedo when the latter is below 
+  bare ice albedo (0.565).
++ Applies a temporal de-noising, smoothing and gap-filling modified after Box et al, 2017.
+  [[https://doi.org/10.34194/geusb.v38.4414][Box, J. E., van As, D., & Steffen, K. (2017). Greenland, Canadian and Icelandic land-ice     albedo grids (2000–2016). GEUS Bulletin, 38, 53-56.]]
 
