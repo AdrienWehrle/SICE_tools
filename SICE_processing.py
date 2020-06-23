@@ -189,7 +189,7 @@ if __name__ == '__main__':
     #and daily cumulative filtered BBAs as values
     filtered_BBAs_cumulative={}
     
-    #gapfilling forwards
+    #gap-filling forwards
     for i,key in enumerate(filtered_BBAs):
         
         if i==0:
