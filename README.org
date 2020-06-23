@@ -102,6 +102,7 @@ Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https
   further combined with planar shortwave broadband albedo when the latter is below 
   bare ice albedo (0.565).
 + Applies a temporal de-noising, smoothing and gap-filling modified after Box et al, 2017.
+
   [[https://doi.org/10.34194/geusb.v38.4414][Box, J. E., van As, D., & Steffen, K. (2017). Greenland, Canadian and Icelandic land-ice     albedo grids (2000–2016). GEUS Bulletin, 38, 53-56.]]
 + All steps except gap-filling are run using multiprocessing to drastically decrease computation time.
 
