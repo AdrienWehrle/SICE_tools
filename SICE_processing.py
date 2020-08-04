@@ -5,10 +5,11 @@
 
 
 Computation of an empirical Broandband Albedo (BBA) from Top of Atmosphere reflectances (r_TOA), 
-further combined planar shortwave broadband albedo values when the latter are below bare ice 
+further combined with planar shortwave broadband albedo values when the latter are below bare ice 
 albedo (0.565).
 
-Application of a temporal filtering based on outlier detection modified after Box et al, 2017.
+Application of a temporal filtering based on outlier detection modified after Box et al, 2017 (OD='B')
+or Wehrle et al, 2020 (OD='W'). 
 
 Production of a daily cumulative ("gapless") product (updating pixel values when an area is 
 considered cloud free).
@@ -48,12 +49,12 @@ ex=rasterio.open(planar_BBA_files[0]).read(1)
 profile=rasterio.open(planar_BBA_files[0]).profile
 
 #parameters for temporal filtering
-deviation_threshold=0.2 #compute temporal average for deviations below deviation_threshold
+deviation_threshold=0.15 #compute temporal average for deviations below deviation_threshold
 rolling_window=10 #center value +-rolling_window days (11 days)
 limit_valid_days=4 #need at least limit_valid_days valid days to compute temporal average 
 
 
-def SICE_processing(k):
+def SICE_processing(k, OD='W'):
     
     '''
     
@@ -64,6 +65,8 @@ def SICE_processing(k):
     
     INPUTS:
         k: iterator from zero to the number of available SICE folders [int]
+        OD: use outlier detection after Box et al, 2017 (B) or
+            Wehrle et al, 2020 (W) [str]
         
     OUTPUTS:
         filtered_BBAs[date]: filtered broadband albedo combination at the date
@@ -88,12 +91,12 @@ def SICE_processing(k):
         #Kwithin rolling_window in 3D matrix 
         for w,j in enumerate(range(k-int(rolling_window/2), k+int(rolling_window/2+1))):
             
-            r_TOA_files=[SICE_folders_av[k]+var for var in ['r_TOA_01.tif','r_TOA_06.tif','r_TOA_17.tif',
+            r_TOA_files=[SICE_folders_av[j]+var for var in ['r_TOA_01.tif','r_TOA_06.tif','r_TOA_17.tif',
                                                             'r_TOA_21.tif']]
             
             r_TOAs=load_rasters(r_TOA_files)
             
-            r_TOAs_combination=np.nanmean(r_TOAs,axis=0)
+            r_TOAs_combination=np.nanmean(r_TOAs,axis=0)/4
             
             empirical_BBA=0.901*r_TOAs_combination+0.124
             
@@ -106,20 +109,42 @@ def SICE_processing(k):
             BBAs_window[:,:,w]=planar_BBA
         
         
-        #compute deviations from median for each pixel along rolling_window
-        deviations=np.abs(BBAs_window-np.nanmedian(BBAs_window,2,keepdims=True))\
-                          /np.nanmedian(BBAs_window,2,keepdims=True)
+        if OD=='B':
+          
+          #compute median for each pixel along rolling_window
+          median_window=np.nanmedian(BBAs_window,2,keepdims=True)
+          
+          #compute deviations from median for each pixel along rolling_window
+          deviations=np.abs((BBAs_window-median_window)/median_window)
+
+          #count valid days for each pixel along rolling_window
+          nb_valid_days=np.sum(deviations<deviation_threshold, axis=2)
+
+          #exclude invalid cases
+          BBAs_window[deviations>deviation_threshold]=np.nan 
         
-        #count valid days for each pixel along rolling_window
-        nb_valid_days=np.sum(deviations<deviation_threshold, axis=2)
+        elif OD=='W':
+          
+          #load albedo raster at the center of rolling_window
+          BBA_center=BBAs_window[:,:,int(rolling_window/2)]
+
+          #compute median for each pixel time series
+          median_window=np.nanmedian(BBAs_window,axis=2)
+
+          #per-pixel deviations within rolling_window
+          deviations=np.abs((BBA_center-median_window)/median_window)
         
-        #exclude invalid cases
-        BBAs_window[deviations>deviation_threshold]=np.nan 
         
-        #store albedo pixel in filtered_BBAs if nb_valid_days is above limit_valid_days
         date=planar_BBA_files[k].split(os.sep)[-2]
         filtered_BBA=np.zeros((np.shape(ex)[0],np.shape(ex)[1])); filtered_BBA[:]=np.nan
-        filtered_BBA[nb_valid_days>limit_valid_days]=np.nanmean(BBAs_window,axis=2)[nb_valid_days>limit_valid_days]
+        
+        if OD=='B':
+          #store albedo pixel in filtered_BBAs if nb_valid_days is above limit_valid_days
+          filtered_BBA[nb_valid_days>limit_valid_days]=np.nanmean(BBAs_window,axis=2)[nb_valid_days>limit_valid_days]
+          
+        if OD=='W':
+          #store albedo pixel in filtered_BBAs if median deviation is lower than thres
+          filtered_BBA[deviations<thres]=np.nanmean(BBAs_window,axis=2)[deviations<thres]
     
     else:
         filtered_BBA=None; date=None
