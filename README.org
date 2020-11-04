@@ -1,6 +1,8 @@
 # SICE_tools
-Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https://www.geus.dk/][GEUS]] (Geological Survey of Denmark and Greenland). 
 
+[[https://zenodo.org/badge/latestdoi/241573665][https://zenodo.org/badge/241573665.svg]]
+
+Tools developed as part of the [[http://snow.geus.dk/][SICE project]] at [[https://www.geus.dk/][GEUS]] (Geological Survey of Denmark and Greenland). 
 
 * Table of Contents                               :toc_2:noexport:
 - [[#development-environment][Development Environment]]
