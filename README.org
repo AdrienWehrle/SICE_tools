@@ -1,4 +1,4 @@
-# SICE_tools
+#+TITLE: SICE_tools
 
 [[https://zenodo.org/badge/latestdoi/241573665][https://zenodo.org/badge/241573665.svg]]
 
